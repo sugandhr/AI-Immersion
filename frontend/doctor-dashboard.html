@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Consultation Portal | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Doctor Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="doctor-dashboard.html" class="sidebar-brand">
+          <span>👨‍⚕️</span> Clinical Portal
+        </a>
+        <button class="mobile-toggle" onclick="toggleSidebar()">&times;</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="nav-category">Clinical Queue</div>
+        <a href="doctor-dashboard.html" class="nav-link active">
+          <span class="nav-icon">🩺</span> Consultations & Queue
+        </a>
+        <a href="appointments.html" class="nav-link">
+          <span class="nav-icon">🗓️</span> Assigned Appointments
+        </a>
+        <a href="staff-lab.html" class="nav-link">
+          <span class="nav-icon">🔬</span> Diagnostic Labs
+        </a>
+        <a href="analytics.html" class="nav-link">
+          <span class="nav-icon">📈</span> OPD Flow Metrics
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title">Doctor Consultation & OPD Desk</div>
+        </div>
+        <div class="header-right">
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar" style="background: linear-gradient(135deg, #1E40AF, #0891B2);">DR</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Dr. Arun Kumar</div>
+              <div class="user-role-label" id="header-user-role">DOCTOR</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- Top Status Spotlight -->
+        <div class="serving-spotlight-card">
+          <div class="spotlight-left">
+            <span class="badge badge-success mb-1" id="staff-serving-status">IN CONSULTATION</span>
+            <h3 id="staff-serving-patient">Rahul Raj (Token: C-21)</h3>
+            <p>Active Patient in Consultation Room 204.</p>
+            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+              <button class="btn btn-outline btn-sm" style="background:#FFF; color:#1E293B;" onclick="startServingPatient()">Start Serving</button>
+              <button class="btn btn-success btn-sm" onclick="completeCurrentPatient()">Complete & Mark Served</button>
+              <button class="btn btn-secondary btn-sm" onclick="callNextPatient()">Call Next</button>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.8rem; opacity: 0.8; text-transform: uppercase;">Active Token</div>
+            <div class="spotlight-token-code" id="staff-serving-token">C-21</div>
+          </div>
+        </div>
+
+        <!-- OPD Controls Bar -->
+        <div class="staff-action-bar">
+          <div class="current-counter-info">
+            <span style="font-weight: 600;">Queue:</span>
+            <select id="staff-queue-select" class="form-control" style="width: auto; min-width: 250px;"></select>
+            
+            <span style="font-weight: 600; margin-left: 1rem;">Counter Desk:</span>
+            <select id="counter-number-select" class="form-control" style="width: auto;">
+              <option value="Room 204">Room 204 (Cardiology)</option>
+              <option value="Room 101">Room 101 (Gen Med)</option>
+              <option value="Room 210">Room 210 (Orthopedics)</option>
+            </select>
+          </div>
+
+          <div>
+            <button class="btn btn-primary" onclick="callNextPatient()">📢 Call Next Waiting Patient</button>
+          </div>
+        </div>
+
+        <!-- Waiting Queue List -->
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">Waiting Patients for Your Counter</h3>
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Patient Name</th>
+                  <th>Joined Time</th>
+                  <th>Estimated Wait</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staff-waiting-table-body">
+                <tr><td colspan="5" class="text-center"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/staff.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

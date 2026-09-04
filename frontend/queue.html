@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Hospital Queue | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/queue.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand">
+          <span>🏥</span> SmartCare AI
+        </a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close menu">&times;</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span>
+        </a>
+        <a href="queue.html" class="nav-link active">
+          <span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span>
+        </a>
+        <a href="qr-token.html" class="nav-link">
+          <span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span>
+        </a>
+        <a href="waiting-history.html" class="nav-link">
+          <span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span>
+        </a>
+
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link">
+          <span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span>
+        </a>
+        <a href="departments.html" class="nav-link">
+          <span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span>
+        </a>
+        <a href="lab-tests.html" class="nav-link">
+          <span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span>
+        </a>
+        <a href="billing.html" class="nav-link">
+          <span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span>
+        </a>
+
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link">
+          <span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span>
+        </a>
+        <a href="best-time.html" class="nav-link">
+          <span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span>
+        </a>
+        <a href="hospital-map.html" class="nav-link">
+          <span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span>
+        </a>
+        <a href="notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span>
+        </a>
+        <a href="feedback.html" class="nav-link">
+          <span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span>
+        </a>
+        <a href="accessibility.html" class="nav-link">
+          <span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">
+          🚪 <span data-i18n="logout">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+          <div class="header-title" data-i18n="join_queue">Join Hospital Queue</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select" aria-label="Language">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="card mb-3">
+          <h2>Step 1: Choose Hospital Department</h2>
+          <p style="margin-top: 0.25rem;">Select the specialized clinical OPD or service you wish to visit today.</p>
+          <div style="margin-top: 0.5rem; font-size: 0.88rem; font-weight: 600; color: var(--primary);">
+            Selected: <span id="selected-dept-display">None (Click a department card below)</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Department Selection Grid -->
+        <div class="dept-selection-grid mb-4" id="dept-selection-grid">
+          <div class="card text-center" style="padding: 2rem;">
+            <div class="spinner"></div>
+            <p class="mt-1">Loading departments from Supabase...</p>
+          </div>
+        </div>
+
+        <!-- Service & Doctor Details Form -->
+        <div class="card">
+          <h3 style="margin-bottom: 1.25rem;">Step 2: Service Type & Doctor Consultation</h3>
+          <form id="join-queue-form">
+            <div class="grid grid-2 gap-2">
+              <div class="form-group">
+                <label class="form-label" for="service-type-select">Select Service</label>
+                <select id="service-type-select" class="form-control" required>
+                  <option value="Consultation">Consultation (Physician / Specialist)</option>
+                  <option value="Registration">Registration (New / Re-visit)</option>
+                  <option value="Laboratory">Laboratory Diagnostics</option>
+                  <option value="Pharmacy">Pharmacy Medicine Dispensing</option>
+                  <option value="Billing">Billing & Insurance Cashless</option>
+                  <option value="Radiology">Radiology & Imaging</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="doctor-select">Attending Doctor (Optional)</label>
+                <select id="doctor-select" class="form-control">
+                  <option value="">Any Available Specialist</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="background: var(--surface-alt); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+              🛡️ <strong>Concurrency Guaranteed:</strong> Token numbers are generated atomically in PostgreSQL using transactional row-level locks to eliminate duplicate numbers across concurrent patient submissions.
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">
+              🎟️ Generate Digital Token & Join Queue
+            </button>
+          </form>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-overlay" id="token-confirm-modal">
+    <div class="modal-content text-center">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎉</div>
+      <h2>You're in Queue!</h2>
+      <p style="margin-bottom: 1.5rem;">Your atomic digital token has been registered in the hospital database.</p>
+
+      <div class="token-badge-large" style="margin: 0 auto 1.5rem; display: inline-block;">
+        <div class="token-badge-label">Your Token Number</div>
+        <div class="token-badge-code" id="modal-token-code">C-28</div>
+        <div id="modal-dept-name" style="font-weight: 600; color: var(--text-muted);">Cardiology</div>
+      </div>
+
+      <div style="background: var(--surface-alt); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem; text-align: left; font-size: 0.9rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+          <span>Patients Ahead:</span>
+          <strong id="modal-patients-ahead">0</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span>AI Estimated Wait:</span>
+          <strong style="color: var(--primary);" id="modal-wait-time">15 min</strong>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <a id="modal-view-qr-btn" href="qr-token.html" class="btn btn-secondary btn-block">View QR Code</a>
+        <a href="patient-dashboard.html" class="btn btn-primary btn-block">Go to Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/queue.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('app-sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Registration | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-container">
+      
+      <!-- Sidebar -->
+      <div class="auth-sidebar">
+        <div>
+          <a href="index.html" class="auth-brand">
+            <span>🏥</span> SmartCare Queue AI
+          </a>
+        </div>
+
+        <div class="auth-sidebar-hero">
+          <h2>Register Once. Enjoy Hassle-Free OPD Visits.</h2>
+          <p>Create your digital patient profile to track queues, access medical invoices, and book specialist consultations.</p>
+          
+          <ul class="auth-feature-list">
+            <li>✓ Free Digital OPD Registration</li>
+            <li>✓ Encrypted Private Patient Record</li>
+            <li>✓ Automated SMS/Web Queue Alerts</li>
+          </ul>
+        </div>
+
+        <div class="auth-sidebar-footer">
+          Less Waiting. Better Care. • 2026
+        </div>
+      </div>
+
+      <!-- Registration Form -->
+      <div class="auth-main">
+        <div class="auth-header">
+          <h1>Create Patient Account</h1>
+          <p>Sign up in under 30 seconds to join hospital queues.</p>
+        </div>
+
+        <form id="patient-register-form">
+          <div class="form-group">
+            <label class="form-label" for="reg-fullname">Full Name</label>
+            <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Anand Sharma" required autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email Address</label>
+            <input type="email" id="reg-email" class="form-control" placeholder="name@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-phone">Phone Number (Optional)</label>
+            <input type="tel" id="reg-phone" class="form-control" placeholder="+91 98765 00000" autocomplete="tel">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-password">Password (min 6 characters)</label>
+            <input type="password" id="reg-password" class="form-control" placeholder="••••••••" required minlength="6" autocomplete="new-password">
+          </div>
+
+          <button type="submit" id="register-submit-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: 1rem;">
+            Complete Registration
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Already registered? <a href="login.html" style="font-weight: 600;">Log in here</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script>
+    document.getElementById('patient-register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById('reg-fullname').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const pass = document.getElementById('reg-password').value;
+      const btn = document.getElementById('register-submit-btn');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Registering...';
+
+      try {
+        await window.Auth.register(fullName, email, pass, 'patient', phone);
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = 'Complete Registration';
+      }
+    });
+  </script>
+</body>
+</html>

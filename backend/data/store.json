@@ -1,0 +1,882 @@
+{
+  "profiles": [
+    {
+      "id": "a0000000-0000-0000-0000-000000000001",
+      "auth_user_id": "00000000-0000-0000-0000-000000000001",
+      "full_name": "Hospital Administrator",
+      "email": "admin@smartcare.org",
+      "phone": "+91 98765 43210",
+      "role": "admin",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "s0000000-0000-0000-0000-000000000001",
+      "auth_user_id": "00000000-0000-0000-0000-000000000002",
+      "full_name": "Staff Nurse Ananya",
+      "email": "staff@smartcare.org",
+      "phone": "+91 98765 43211",
+      "role": "staff",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "b0000000-0000-0000-0000-000000000001",
+      "auth_user_id": "00000000-0000-0000-0000-000000000003",
+      "full_name": "Dr. Arun Kumar",
+      "email": "arun.cardio@smartcare.org",
+      "phone": "+91 98765 43212",
+      "role": "doctor",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "b0000000-0000-0000-0000-000000000002",
+      "auth_user_id": "00000000-0000-0000-0000-000000000004",
+      "full_name": "Dr. Priya Devi",
+      "email": "priya.genmed@smartcare.org",
+      "phone": "+91 98765 43213",
+      "role": "doctor",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "b0000000-0000-0000-0000-000000000003",
+      "auth_user_id": "00000000-0000-0000-0000-000000000005",
+      "full_name": "Dr. Rahul Kumar",
+      "email": "rahul.ortho@smartcare.org",
+      "phone": "+91 98765 43214",
+      "role": "doctor",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "b0000000-0000-0000-0000-000000000004",
+      "auth_user_id": "00000000-0000-0000-0000-000000000006",
+      "full_name": "Dr. Divya S",
+      "email": "divya.pedia@smartcare.org",
+      "phone": "+91 98765 43215",
+      "role": "doctor",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "c0000000-0000-0000-0000-000000000001",
+      "auth_user_id": "00000000-0000-0000-0000-000000000007",
+      "full_name": "Priya Sharma",
+      "email": "patient@smartcare.org",
+      "phone": "+91 98765 43220",
+      "role": "patient",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "c0000000-0000-0000-0000-000000000002",
+      "auth_user_id": "00000000-0000-0000-0000-000000000008",
+      "full_name": "Rahul Raj",
+      "email": "rahul.raj@example.com",
+      "phone": "+91 98765 43221",
+      "role": "patient",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "c0000000-0000-0000-0000-000000000003",
+      "auth_user_id": "00000000-0000-0000-0000-000000000009",
+      "full_name": "Karthik M",
+      "email": "karthik.m@example.com",
+      "phone": "+91 98765 43222",
+      "role": "patient",
+      "created_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "24fc630c-dd1f-43e8-bd9c-fb3e6de18b3a",
+      "auth_user_id": "e9c9fb54-19ec-4839-983d-71d433068976",
+      "full_name": "Test Supabase Patient",
+      "email": "test_patient_11d2eb@example.com",
+      "phone": "+91 00000 11111",
+      "gender": "prefer_not_to_say",
+      "role": "patient",
+      "date_of_birth": null,
+      "created_at": "2026-09-04T19:26:09.075835Z",
+      "updated_at": "2026-09-04T19:26:09.076267Z"
+    },
+    {
+      "id": "f4b164e4-e1db-4526-a676-01e77ffd2e39",
+      "auth_user_id": "1fac2b2d-0372-4fc1-a80f-16a5eac20fd6",
+      "full_name": "Test Supabase Patient",
+      "email": "test_patient_3012aa@example.com",
+      "phone": "+91 00000 11111",
+      "gender": "prefer_not_to_say",
+      "role": "patient",
+      "date_of_birth": null,
+      "created_at": "2026-09-04T19:26:15.334717Z",
+      "updated_at": "2026-09-04T19:26:15.335161Z"
+    },
+    {
+      "id": "5a8c7d39-2c27-478f-942c-9870e4488f41",
+      "auth_user_id": "60382257-e917-42b8-ad90-fc9cdf5bb2d9",
+      "full_name": "Test Supabase Patient",
+      "email": "test_patient_eec1b0@example.com",
+      "phone": "+91 00000 11111",
+      "gender": "prefer_not_to_say",
+      "role": "patient",
+      "date_of_birth": null,
+      "created_at": "2026-09-04T19:26:30.032594Z",
+      "updated_at": "2026-09-04T19:26:30.033031Z"
+    }
+  ],
+  "departments": [
+    {
+      "id": "d1000000-0000-0000-0000-000000000001",
+      "name": "General Medicine",
+      "description": "Primary outpatient adult care, acute fevers, physical health assessments",
+      "location": "Wing A - Room 101",
+      "floor": "Ground Floor",
+      "code_prefix": "GM",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000002",
+      "name": "Cardiology",
+      "description": "Heart health, ECG, echocardiograms, cardiovascular screenings",
+      "location": "Wing B - Room 204",
+      "floor": "First Floor",
+      "code_prefix": "C",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000003",
+      "name": "Orthopedics",
+      "description": "Bones, joints, spine care, fractures, arthritis clinic",
+      "location": "Wing B - Room 210",
+      "floor": "First Floor",
+      "code_prefix": "ORT",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000004",
+      "name": "Pediatrics",
+      "description": "Comprehensive childcare, vaccinations, developmental assessments",
+      "location": "Wing C - Room 105",
+      "floor": "Ground Floor",
+      "code_prefix": "PED",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000005",
+      "name": "Dermatology",
+      "description": "Skin, hair, nail diagnostics and dermatological therapies",
+      "location": "Wing A - Room 302",
+      "floor": "Second Floor",
+      "code_prefix": "DER",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000006",
+      "name": "Neurology",
+      "description": "Neurological consultations, headache disorders, nerve care",
+      "location": "Wing B - Room 315",
+      "floor": "Second Floor",
+      "code_prefix": "NEU",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000007",
+      "name": "ENT",
+      "description": "Ear, Nose and Throat diagnostics and audiology screenings",
+      "location": "Wing A - Room 205",
+      "floor": "First Floor",
+      "code_prefix": "ENT",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000008",
+      "name": "Laboratory",
+      "description": "Automated hematology, biochemistry, and rapid culture diagnostics",
+      "location": "Central Block - Lab 1",
+      "floor": "Ground Floor",
+      "code_prefix": "LAB",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000009",
+      "name": "Pharmacy",
+      "description": "Outpatient drug dispensing, dosage counseling and generic medicine",
+      "location": "Main Atrium - Counter 4",
+      "floor": "Ground Floor",
+      "code_prefix": "PH",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000010",
+      "name": "Billing",
+      "description": "Cashless insurance claims, computerized billing, receipt counters",
+      "location": "Main Atrium - Counters 1-3",
+      "floor": "Ground Floor",
+      "code_prefix": "BIL",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000011",
+      "name": "Registration",
+      "description": "New patient registrations, digital token kiosks, inquiries",
+      "location": "Main Entrance - Reception",
+      "floor": "Ground Floor",
+      "code_prefix": "REG",
+      "active": true
+    },
+    {
+      "id": "d1000000-0000-0000-0000-000000000012",
+      "name": "Emergency",
+      "description": "24/7 Trauma, acute resuscitation and critical medical triage",
+      "location": "Emergency Bay - Gate 2",
+      "floor": "Ground Floor",
+      "code_prefix": "EMG",
+      "active": true
+    }
+  ],
+  "doctors": [
+    {
+      "id": "doc00000-0000-0000-0000-000000000001",
+      "profile_id": "b0000000-0000-0000-0000-000000000001",
+      "full_name": "Dr. Arun Kumar",
+      "department_id": "d1000000-0000-0000-0000-000000000002",
+      "department_name": "Cardiology",
+      "specialization": "Senior Cardiologist (MD, DM)",
+      "room_number": "Room 204",
+      "average_consultation_minutes": 15,
+      "status": "available"
+    },
+    {
+      "id": "doc00000-0000-0000-0000-000000000002",
+      "profile_id": "b0000000-0000-0000-0000-000000000002",
+      "full_name": "Dr. Priya Devi",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "specialization": "Chief Consultant Physician (MD)",
+      "room_number": "Room 101",
+      "average_consultation_minutes": 12,
+      "status": "available"
+    },
+    {
+      "id": "doc00000-0000-0000-0000-000000000003",
+      "profile_id": "b0000000-0000-0000-0000-000000000003",
+      "full_name": "Dr. Rahul Kumar",
+      "department_id": "d1000000-0000-0000-0000-000000000003",
+      "department_name": "Orthopedics",
+      "specialization": "Orthopedic Surgeon (MS Ortho)",
+      "room_number": "Room 210",
+      "average_consultation_minutes": 18,
+      "status": "available"
+    },
+    {
+      "id": "doc00000-0000-0000-0000-000000000004",
+      "profile_id": "b0000000-0000-0000-0000-000000000004",
+      "full_name": "Dr. Divya S",
+      "department_id": "d1000000-0000-0000-0000-000000000004",
+      "department_name": "Pediatrics",
+      "specialization": "Pediatric Specialist (MD)",
+      "room_number": "Room 105",
+      "average_consultation_minutes": 14,
+      "status": "available"
+    }
+  ],
+  "queues": [
+    {
+      "id": "q0000000-0000-0000-0000-000000000001",
+      "department_id": "d1000000-0000-0000-0000-000000000002",
+      "department_name": "Cardiology",
+      "service_type": "Consultation",
+      "queue_date": "2026-09-05",
+      "current_token_number": 27,
+      "status": "active"
+    },
+    {
+      "id": "q0000000-0000-0000-0000-000000000002",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "service_type": "Consultation",
+      "queue_date": "2026-09-05",
+      "current_token_number": 45,
+      "status": "active",
+      "updated_at": "2026-09-04T19:26:30.039839Z"
+    },
+    {
+      "id": "q0000000-0000-0000-0000-000000000003",
+      "department_id": "d1000000-0000-0000-0000-000000000008",
+      "department_name": "Laboratory",
+      "service_type": "Laboratory",
+      "queue_date": "2026-09-05",
+      "current_token_number": 18,
+      "status": "active"
+    },
+    {
+      "id": "q0000000-0000-0000-0000-000000000004",
+      "department_id": "d1000000-0000-0000-0000-000000000010",
+      "department_name": "Billing",
+      "service_type": "Billing",
+      "queue_date": "2026-09-05",
+      "current_token_number": 32,
+      "status": "active"
+    }
+  ],
+  "queue_entries": [
+    {
+      "id": "e0000000-0000-0000-0000-000000000001",
+      "queue_id": "q0000000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000002",
+      "patient_name": "Rahul Raj",
+      "token_number": 21,
+      "token_code": "C-21",
+      "status": "completed",
+      "estimated_wait_minutes": 0,
+      "counter_number": "Room 204",
+      "joined_at": "2026-09-04T09:00:00Z",
+      "called_at": "2026-09-04T09:30:00Z",
+      "serving_at": "2026-09-04T09:32:00Z",
+      "completed_at": "2026-09-04T19:25:53.402710Z"
+    },
+    {
+      "id": "e0000000-0000-0000-0000-000000000002",
+      "queue_id": "q0000000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000003",
+      "patient_name": "Karthik M",
+      "token_number": 22,
+      "token_code": "C-22",
+      "status": "completed",
+      "estimated_wait_minutes": 5,
+      "counter_number": "Room 204",
+      "joined_at": "2026-09-04T09:10:00Z",
+      "called_at": "2026-09-04T09:40:00Z",
+      "serving_at": null,
+      "completed_at": "2026-09-04T19:25:53.403032Z"
+    },
+    {
+      "id": "e0000000-0000-0000-0000-000000000003",
+      "queue_id": "q0000000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000001",
+      "patient_name": "Priya Sharma",
+      "token_number": 27,
+      "token_code": "C-27",
+      "status": "completed",
+      "estimated_wait_minutes": 35,
+      "counter_number": "Room 204",
+      "joined_at": "2026-09-04T09:25:00Z",
+      "called_at": "2026-09-04T19:25:53.403320Z",
+      "serving_at": null,
+      "completed_at": "2026-09-04T19:26:15.286638Z"
+    },
+    {
+      "id": "4320828f-f6a7-4fe4-b231-36d3ca301dae",
+      "queue_id": "q0000000-0000-0000-0000-000000000002",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "service_type": "Consultation",
+      "patient_id": "c0000000-0000-0000-0000-000000000002",
+      "patient_name": "Rahul Raj",
+      "doctor_id": null,
+      "token_number": 41,
+      "token_code": "GM-41",
+      "status": "completed",
+      "priority_requested": false,
+      "priority_approved": false,
+      "joined_at": "2026-09-04T19:25:53.394490Z",
+      "called_at": "2026-09-04T19:26:09.084275Z",
+      "serving_at": null,
+      "completed_at": "2026-09-04T19:26:15.344531Z",
+      "estimated_wait_minutes": 5,
+      "counter_number": "Room 101"
+    },
+    {
+      "id": "944c5270-e998-4013-a26a-95497ae85ce5",
+      "queue_id": "q0000000-0000-0000-0000-000000000002",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "service_type": "Consultation",
+      "patient_id": "1ea229b2-e764-479d-80ba-78a0601eb67f",
+      "patient_name": "Patient",
+      "doctor_id": null,
+      "token_number": 42,
+      "token_code": "GM-42",
+      "status": "completed",
+      "priority_requested": false,
+      "priority_approved": false,
+      "joined_at": "2026-09-04T19:26:09.083592Z",
+      "called_at": null,
+      "serving_at": null,
+      "completed_at": "2026-09-04T19:26:09.084913Z",
+      "estimated_wait_minutes": 12,
+      "counter_number": null
+    },
+    {
+      "id": "0b7649ba-e8c0-48f6-8d70-3a134230f6a8",
+      "queue_id": "q0000000-0000-0000-0000-000000000002",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "service_type": "Consultation",
+      "patient_id": "a200099c-35a9-4bc0-98eb-c67e21ced3b3",
+      "patient_name": "Patient",
+      "doctor_id": null,
+      "token_number": 43,
+      "token_code": "GM-43",
+      "status": "completed",
+      "priority_requested": false,
+      "priority_approved": false,
+      "joined_at": "2026-09-04T19:26:15.343690Z",
+      "called_at": "2026-09-04T19:26:15.344920Z",
+      "serving_at": null,
+      "completed_at": "2026-09-04T19:26:15.345642Z",
+      "estimated_wait_minutes": 5,
+      "counter_number": "Room 101"
+    },
+    {
+      "id": "6adf86fe-fc08-4eb3-a713-1bf4f5664c69",
+      "queue_id": "q0000000-0000-0000-0000-000000000002",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "service_type": "Consultation",
+      "patient_id": "c0000000-0000-0000-0000-000000000002",
+      "patient_name": "Rahul Raj",
+      "doctor_id": null,
+      "token_number": 44,
+      "token_code": "GM-44",
+      "status": "called",
+      "priority_requested": false,
+      "priority_approved": false,
+      "joined_at": "2026-09-04T19:26:29.979690Z",
+      "called_at": "2026-09-04T19:26:30.041332Z",
+      "serving_at": null,
+      "completed_at": null,
+      "estimated_wait_minutes": 5,
+      "counter_number": "Room 101"
+    },
+    {
+      "id": "a4ebdcd4-0d4a-41c1-98a0-772ab33789bb",
+      "queue_id": "q0000000-0000-0000-0000-000000000002",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "service_type": "Consultation",
+      "patient_id": "44358e7c-61a8-4d21-992f-ed090f4882a4",
+      "patient_name": "Patient",
+      "doctor_id": null,
+      "token_number": 45,
+      "token_code": "GM-45",
+      "status": "completed",
+      "priority_requested": false,
+      "priority_approved": false,
+      "joined_at": "2026-09-04T19:26:30.040388Z",
+      "called_at": null,
+      "serving_at": null,
+      "completed_at": "2026-09-04T19:26:30.042204Z",
+      "estimated_wait_minutes": 12,
+      "counter_number": null
+    }
+  ],
+  "appointments": [
+    {
+      "id": "app00000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000001",
+      "patient_name": "Priya Sharma",
+      "doctor_id": "doc00000-0000-0000-0000-000000000001",
+      "doctor_name": "Dr. Arun Kumar",
+      "department_id": "d1000000-0000-0000-0000-000000000002",
+      "department_name": "Cardiology",
+      "appointment_date": "2026-09-05",
+      "appointment_time": "11:30 AM",
+      "reason": "Routine hypertension check and ECG evaluation",
+      "status": "confirmed",
+      "created_at": "2026-09-02T10:00:00Z"
+    }
+  ],
+  "lab_orders": [
+    {
+      "id": "lab00000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000001",
+      "doctor_id": "doc00000-0000-0000-0000-000000000001",
+      "doctor_name": "Dr. Arun Kumar",
+      "test_name": "Complete Blood Count (CBC) & Lipid Profile",
+      "status": "processing",
+      "ordered_at": "2026-09-04T07:30:00Z",
+      "sample_collected_at": "2026-09-04T08:00:00Z",
+      "processing_at": "2026-09-04T08:30:00Z",
+      "report_ready_at": null,
+      "report_reference": "LAB-REP-CBC-8812",
+      "notes": "Fasting sample collected. Results expected in 2 hours."
+    },
+    {
+      "id": "5c98f6f5-d7ff-4162-ad8c-33048a76a3fa",
+      "patient_id": "b339012c-295d-48f1-a562-28acfe5f09e6",
+      "test_name": "Thyroid Profile (T3, T4, TSH)",
+      "status": "ordered",
+      "ordered_at": "2026-09-04T19:26:09.067563Z"
+    },
+    {
+      "id": "da56f0bc-50bf-47d9-8663-deed124c9deb",
+      "patient_id": "ef4d68cc-3b06-4088-9e97-78ee00482ae6",
+      "test_name": "Thyroid Profile (T3, T4, TSH)",
+      "status": "ordered",
+      "ordered_at": "2026-09-04T19:26:15.326110Z"
+    },
+    {
+      "id": "193a4385-37b2-4206-9d3e-7681627458b3",
+      "patient_id": "d18f3664-64e0-4b16-ab7e-8ae82c2fbb64",
+      "test_name": "Thyroid Profile (T3, T4, TSH)",
+      "status": "ordered",
+      "ordered_at": "2026-09-04T19:26:30.024146Z"
+    }
+  ],
+  "bills": [
+    {
+      "id": "bil00000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000001",
+      "bill_number": "INV-2026-0891",
+      "consultation_fee": 500.0,
+      "lab_fee": 300.0,
+      "pharmacy_fee": 0.0,
+      "registration_fee": 100.0,
+      "other_charges": 0.0,
+      "total_amount": 900.0,
+      "payment_status": "paid",
+      "created_at": "2026-09-04T09:30:00Z"
+    },
+    {
+      "id": "4c990805-05ce-43a2-86d8-cc660109ba1b",
+      "patient_id": "230fbfcf-6ae5-432a-8c09-0b5ee3293ef1",
+      "bill_number": "INV-TEST-4564",
+      "consultation_fee": 500.0,
+      "lab_fee": 250.0,
+      "pharmacy_fee": 0.0,
+      "registration_fee": 50.0,
+      "other_charges": 0.0,
+      "total_amount": 800.0,
+      "payment_status": "paid",
+      "created_at": "2026-09-04T19:26:09.059478Z"
+    },
+    {
+      "id": "d877df8d-d0a9-4e6e-9efd-f58f7acaed1f",
+      "patient_id": "6eebabcb-805f-4c29-9c7c-7eb49260ee7d",
+      "bill_number": "INV-TEST-5a8b",
+      "consultation_fee": 500.0,
+      "lab_fee": 250.0,
+      "pharmacy_fee": 0.0,
+      "registration_fee": 50.0,
+      "other_charges": 0.0,
+      "total_amount": 800.0,
+      "payment_status": "paid",
+      "created_at": "2026-09-04T19:26:15.318073Z"
+    },
+    {
+      "id": "d055fe71-746e-40f7-bd00-61a64e43c9b0",
+      "patient_id": "f77f748a-0134-4144-aeeb-afc14e5a2756",
+      "bill_number": "INV-TEST-5d79",
+      "consultation_fee": 500.0,
+      "lab_fee": 250.0,
+      "pharmacy_fee": 0.0,
+      "registration_fee": 50.0,
+      "other_charges": 0.0,
+      "total_amount": 800.0,
+      "payment_status": "paid",
+      "created_at": "2026-09-04T19:26:30.016042Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "6f7f8d93-9de1-490f-b872-e055ebdd4764",
+      "bill_id": "bil00000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000001",
+      "amount": 900.0,
+      "payment_method": "UPI Simulation",
+      "transaction_id": "TXN_SIM_20260905005553_EB7164",
+      "status": "completed",
+      "created_at": "2026-09-04T19:25:53.425624Z"
+    },
+    {
+      "id": "8f9175da-f687-4d8c-a496-09f24c72577d",
+      "bill_id": "4c990805-05ce-43a2-86d8-cc660109ba1b",
+      "patient_id": "230fbfcf-6ae5-432a-8c09-0b5ee3293ef1",
+      "amount": 800.0,
+      "payment_method": "UPI",
+      "transaction_id": "TXN_TEST_d615a3",
+      "status": "completed",
+      "created_at": "2026-09-04T19:26:09.060594Z"
+    },
+    {
+      "id": "4af62327-bf5e-4fc9-a683-302c6ba5a3c1",
+      "bill_id": "d877df8d-d0a9-4e6e-9efd-f58f7acaed1f",
+      "patient_id": "6eebabcb-805f-4c29-9c7c-7eb49260ee7d",
+      "amount": 800.0,
+      "payment_method": "UPI",
+      "transaction_id": "TXN_TEST_34e6ed",
+      "status": "completed",
+      "created_at": "2026-09-04T19:26:15.318932Z"
+    },
+    {
+      "id": "a3fd1ea6-149d-447c-b018-df61cc2dc46d",
+      "bill_id": "d055fe71-746e-40f7-bd00-61a64e43c9b0",
+      "patient_id": "f77f748a-0134-4144-aeeb-afc14e5a2756",
+      "amount": 800.0,
+      "payment_method": "UPI",
+      "transaction_id": "TXN_TEST_a3b08a",
+      "status": "completed",
+      "created_at": "2026-09-04T19:26:30.016985Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "e4a4229e-cf87-4b06-ac3a-41c3d95a3397",
+      "user_id": "c0000000-0000-0000-0000-000000000002",
+      "title": "Queue Joined: GM-41",
+      "message": "You joined General Medicine queue. Token: GM-41. Estimated wait: 5 mins.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:25:53.394810Z"
+    },
+    {
+      "id": "cbb43c87-38e2-4711-a39f-79adb63d61ee",
+      "user_id": "c0000000-0000-0000-0000-000000000001",
+      "title": "Token C-27 Called!",
+      "message": "Your token C-27 is now being called! Please proceed immediately to Room 204.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:25:53.403320Z"
+    },
+    {
+      "id": "0c6e1829-1db2-48ac-bebc-a9f3c80146aa",
+      "user_id": "c0000000-0000-0000-0000-000000000001",
+      "title": "Payment Successful",
+      "message": "Payment of \u20b9900.00 for bill INV-2026-0891 was successful. Ref: TXN_SIM_20260905005553_EB7164.",
+      "type": "billing",
+      "is_read": false,
+      "created_at": "2026-09-04T19:25:53.425624Z"
+    },
+    {
+      "id": "0d63aec9-8fe0-4bbd-b7c0-5e13a71d3109",
+      "user_id": "b339012c-295d-48f1-a562-28acfe5f09e6",
+      "title": "Test Notification",
+      "message": "Sample message",
+      "type": "system",
+      "is_read": true,
+      "created_at": "2026-09-04T19:26:09.067921Z"
+    },
+    {
+      "id": "b7237d35-5691-4d02-9ace-8050aeeebb32",
+      "user_id": "1ea229b2-e764-479d-80ba-78a0601eb67f",
+      "title": "Queue Joined: GM-42",
+      "message": "You joined General Medicine queue. Token: GM-42. Estimated wait: 12 mins.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:09.083920Z"
+    },
+    {
+      "id": "74e71305-dd71-4ebb-a3ab-39d1a53a39a1",
+      "user_id": "c0000000-0000-0000-0000-000000000002",
+      "title": "Token GM-41 Called!",
+      "message": "Your token GM-41 is now being called! Please proceed immediately to Room 101.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:09.084275Z"
+    },
+    {
+      "id": "1e4b442b-e394-4306-8ddc-a8c90875ff04",
+      "user_id": "1ea229b2-e764-479d-80ba-78a0601eb67f",
+      "title": "Consultation Completed",
+      "message": "Your consultation for token GM-42 is completed. Thank you!",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:09.084913Z"
+    },
+    {
+      "id": "e57e00e9-c47c-42b5-8519-1ebcea72352b",
+      "user_id": "ef4d68cc-3b06-4088-9e97-78ee00482ae6",
+      "title": "Test Notification",
+      "message": "Sample message",
+      "type": "system",
+      "is_read": true,
+      "created_at": "2026-09-04T19:26:15.326630Z"
+    },
+    {
+      "id": "b9ba73d7-fd8e-41fd-8466-17053da2f37b",
+      "user_id": "a200099c-35a9-4bc0-98eb-c67e21ced3b3",
+      "title": "Queue Joined: GM-43",
+      "message": "You joined General Medicine queue. Token: GM-43. Estimated wait: 5 mins.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:15.344094Z"
+    },
+    {
+      "id": "8d1f904f-fb0e-49cb-8e45-a2286e5dbd13",
+      "user_id": "a200099c-35a9-4bc0-98eb-c67e21ced3b3",
+      "title": "Token GM-43 Called!",
+      "message": "Your token GM-43 is now being called! Please proceed immediately to Room 101.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:15.344920Z"
+    },
+    {
+      "id": "943222b6-e45e-4400-a361-42af4a02ddcc",
+      "user_id": "a200099c-35a9-4bc0-98eb-c67e21ced3b3",
+      "title": "Consultation Completed",
+      "message": "Your consultation for token GM-43 is completed. Thank you!",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:15.345642Z"
+    },
+    {
+      "id": "91effc51-68c3-4064-b908-3ca40863a013",
+      "user_id": "c0000000-0000-0000-0000-000000000002",
+      "title": "Queue Joined: GM-44",
+      "message": "You joined General Medicine queue. Token: GM-44. Estimated wait: 5 mins.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:29.980287Z"
+    },
+    {
+      "id": "2795fc6d-32e4-4bd3-8add-4be35f6c3ad9",
+      "user_id": "d18f3664-64e0-4b16-ab7e-8ae82c2fbb64",
+      "title": "Test Notification",
+      "message": "Sample message",
+      "type": "system",
+      "is_read": true,
+      "created_at": "2026-09-04T19:26:30.024728Z"
+    },
+    {
+      "id": "b8e8a4e8-0bc3-46c4-93eb-0697337a6baa",
+      "user_id": "44358e7c-61a8-4d21-992f-ed090f4882a4",
+      "title": "Queue Joined: GM-45",
+      "message": "You joined General Medicine queue. Token: GM-45. Estimated wait: 12 mins.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:30.040853Z"
+    },
+    {
+      "id": "9cb50d89-3d88-4a82-bc69-ba7bc2dcb056",
+      "user_id": "c0000000-0000-0000-0000-000000000002",
+      "title": "Token GM-44 Called!",
+      "message": "Your token GM-44 is now being called! Please proceed immediately to Room 101.",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:30.041332Z"
+    },
+    {
+      "id": "ceeed829-7945-44a1-8d67-cd39b19b5a21",
+      "user_id": "44358e7c-61a8-4d21-992f-ed090f4882a4",
+      "title": "Consultation Completed",
+      "message": "Your consultation for token GM-45 is completed. Thank you!",
+      "type": "queue",
+      "is_read": false,
+      "created_at": "2026-09-04T19:26:30.042204Z"
+    }
+  ],
+  "hospital_locations": [
+    {
+      "id": "loc00000-0000-0000-0000-000000000001",
+      "name": "Main Entrance",
+      "location_type": "entrance",
+      "floor": "Ground Floor",
+      "description": "Main hospital reception, digital kiosks, information",
+      "x_position": 80,
+      "y_position": 480
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000002",
+      "name": "Registration Counter",
+      "location_type": "service",
+      "floor": "Ground Floor",
+      "description": "Patient registration, card issue, inquiries",
+      "x_position": 180,
+      "y_position": 420
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000003",
+      "name": "Central Waiting Lounge",
+      "location_type": "waiting",
+      "floor": "Ground Floor",
+      "description": "Comfortable air-conditioned seating with live token displays",
+      "x_position": 360,
+      "y_position": 360
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000004",
+      "name": "Billing & Cashless Helpdesk",
+      "location_type": "billing",
+      "floor": "Ground Floor",
+      "description": "OPD billing counters 1 to 3",
+      "x_position": 540,
+      "y_position": 420
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000005",
+      "name": "Outpatient Pharmacy",
+      "location_type": "pharmacy",
+      "floor": "Ground Floor",
+      "description": "Pharmacy medicine dispensary counter 4",
+      "x_position": 680,
+      "y_position": 420
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000006",
+      "name": "Central Laboratory & Blood Collection",
+      "location_type": "lab",
+      "floor": "Ground Floor",
+      "description": "Blood draw, sample collection & automated diagnostics",
+      "x_position": 680,
+      "y_position": 220
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000007",
+      "name": "General Medicine OPD",
+      "location_type": "clinic",
+      "floor": "Ground Floor",
+      "description": "Rooms 101 to 104, Adult health checkups",
+      "x_position": 180,
+      "y_position": 200
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000008",
+      "name": "Emergency Trauma Bay",
+      "location_type": "emergency",
+      "floor": "Ground Floor",
+      "description": "24x7 Emergency resuscitation and ambulance bay",
+      "x_position": 80,
+      "y_position": 160
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000009",
+      "name": "Cardiology Center",
+      "location_type": "clinic",
+      "floor": "First Floor",
+      "description": "Cardiology consultation rooms 201-204, ECG, Echo",
+      "x_position": 260,
+      "y_position": 220
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000010",
+      "name": "Orthopedic Clinic & Cast Room",
+      "location_type": "clinic",
+      "floor": "First Floor",
+      "description": "Rooms 210-214, Joint and spine rehabilitation",
+      "x_position": 500,
+      "y_position": 220
+    },
+    {
+      "id": "loc00000-0000-0000-0000-000000000011",
+      "name": "Pediatric Care & Play Area",
+      "location_type": "clinic",
+      "floor": "Ground Floor",
+      "description": "Rooms 105-108, Child friendly clinical rooms",
+      "x_position": 360,
+      "y_position": 160
+    }
+  ],
+  "feedback": [
+    {
+      "id": "fb000000-0000-0000-0000-000000000001",
+      "patient_id": "c0000000-0000-0000-0000-000000000001",
+      "patient_name": "Priya Sharma",
+      "department_id": "d1000000-0000-0000-0000-000000000001",
+      "department_name": "General Medicine",
+      "queue_entry_id": "e0000000-0000-0000-0000-000000000010",
+      "overall_rating": 5,
+      "waiting_rating": 4,
+      "staff_rating": 5,
+      "doctor_rating": 5,
+      "facility_rating": 5,
+      "comment": "Quick digital token process. Dr. Priya was very attentive and compassionate!",
+      "created_at": "2026-08-28T11:00:00Z"
+    }
+  ],
+  "priority_requests": []
+}

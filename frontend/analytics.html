@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Analytics & AI Insights | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/analytics.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="staff-dashboard.html" class="sidebar-brand"><span>🛡️</span> SmartCare Ops</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Control</div>
+        <a href="staff-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+        <a href="queue-management.html" class="nav-link"><span class="nav-icon">⚡</span> Live Queue Management</a>
+        <div class="nav-category">Hospital Operations</div>
+        <a href="patients.html" class="nav-link"><span class="nav-icon">👥</span> Patient Directory</a>
+        <a href="doctors.html" class="nav-link"><span class="nav-icon">👨‍⚕️</span> Doctors & Counters</a>
+        <a href="staff-departments.html" class="nav-link"><span class="nav-icon">🏥</span> Departments</a>
+        <a href="staff-lab.html" class="nav-link"><span class="nav-icon">🔬</span> Laboratory Processing</a>
+        <a href="staff-billing.html" class="nav-link"><span class="nav-icon">💳</span> OPD Billing Desk</a>
+        <div class="nav-category">Intelligence & Review</div>
+        <a href="analytics.html" class="nav-link active"><span class="nav-icon">📈</span> Operational Analytics</a>
+        <a href="staff-feedback.html" class="nav-link"><span class="nav-icon">⭐</span> Patient Feedback</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title">Hospital Analytics & Operational Insights</div>
+        </div>
+        <div class="header-right">
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">ST</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Staff</div>
+              <div class="user-role-label" id="header-user-role">STAFF</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- KPI METRICS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Total Outpatients Today</div>
+              <div class="stat-value" id="analytics-total-today">0</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-blue">👥</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Average Wait Duration</div>
+              <div class="stat-value" id="analytics-avg-wait">0 min</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-cyan">⏱️</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Consultations Completed</div>
+              <div class="stat-value" id="analytics-total-served">0</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-green">✅</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Patient Satisfaction</div>
+              <div class="stat-value" id="analytics-satisfaction">4.8 / 5</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-amber">⭐</div>
+          </div>
+        </div>
+
+        <!-- CHARTS GRID -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Peak Outpatient Hours (8 AM - 5 PM)</div>
+              <span class="badge badge-primary">Hourly Traffic</span>
+            </div>
+            <canvas id="peak-hours-canvas"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Patient Volume by Clinical Department</div>
+              <span class="badge badge-info">OPD Distribution</span>
+            </div>
+            <canvas id="dept-distribution-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- AI OPERATIONAL INSIGHTS (Section 44) -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div>
+              <h3>AI Queue & Resource Insights</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">Predictive bottleneck detection and counter allocation suggestions.</p>
+            </div>
+            <span class="ai-badge">🤖 Live Recommendations</span>
+          </div>
+
+          <div id="ai-insights-container">
+            <div class="text-center" style="padding: 2rem;"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/analytics.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

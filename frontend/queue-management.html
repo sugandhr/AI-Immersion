@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Queue Management | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="staff-dashboard.html" class="sidebar-brand"><span>🛡️</span> SmartCare Ops</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Control</div>
+        <a href="staff-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+        <a href="queue-management.html" class="nav-link active"><span class="nav-icon">⚡</span> Live Queue Management</a>
+        <div class="nav-category">Hospital Operations</div>
+        <a href="patients.html" class="nav-link"><span class="nav-icon">👥</span> Patient Directory</a>
+        <a href="doctors.html" class="nav-link"><span class="nav-icon">👨‍⚕️</span> Doctors & Counters</a>
+        <a href="staff-departments.html" class="nav-link"><span class="nav-icon">🏥</span> Departments</a>
+        <a href="staff-lab.html" class="nav-link"><span class="nav-icon">🔬</span> Laboratory Processing</a>
+        <a href="staff-billing.html" class="nav-link"><span class="nav-icon">💳</span> OPD Billing Desk</a>
+        <div class="nav-category">Intelligence & Review</div>
+        <a href="analytics.html" class="nav-link"><span class="nav-icon">📈</span> Operational Analytics</a>
+        <a href="staff-feedback.html" class="nav-link"><span class="nav-icon">⭐</span> Patient Feedback</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title">Live Queue Calling & Counter Controls</div>
+        </div>
+        <div class="header-right">
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">ST</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Staff</div>
+              <div class="user-role-label" id="header-user-role">STAFF</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="staff-action-bar">
+          <div class="current-counter-info">
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">ACTIVE COUNTER:</span>
+              <div class="counter-badge-display" id="current-counter-display">Counter 1</div>
+            </div>
+
+            <div style="margin-left: 1rem;">
+              <label for="staff-queue-select" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); display: block;">QUEUE:</label>
+              <select id="staff-queue-select" class="form-control" style="width: auto; min-width: 250px;"></select>
+            </div>
+
+            <div style="margin-left: 0.5rem;">
+              <label for="counter-number-select" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); display: block;">ROOM/COUNTER:</label>
+              <select id="counter-number-select" class="form-control" style="width: auto;">
+                <option value="Counter 1">Counter 1</option>
+                <option value="Counter 2">Counter 2</option>
+                <option value="Room 204">Room 204</option>
+                <option value="Room 101">Room 101</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="queue-action-buttons">
+            <button class="btn btn-primary" onclick="callNextPatient()">📢 Call Next</button>
+            <button class="btn btn-outline" style="background:#FFF;" onclick="startServingPatient()">▶️ Start Serving</button>
+            <button class="btn btn-outline" style="background:#FFF;" onclick="recallCurrentPatient()">🔁 Recall</button>
+            <button class="btn btn-success" onclick="completeCurrentPatient()">✓ Complete</button>
+          </div>
+        </div>
+
+        <div class="serving-spotlight-card">
+          <div class="spotlight-left">
+            <span class="badge badge-info mb-1" id="staff-serving-status">STATUS</span>
+            <h3 id="staff-serving-patient">No Patient Active</h3>
+            <p>Call next token to update live patient screens.</p>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.8rem; opacity: 0.8; text-transform: uppercase;">Now Serving</div>
+            <div class="spotlight-token-code" id="staff-serving-token">--</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">Active Queue Entries (Real-Time)</h3>
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Patient Name</th>
+                  <th>Joined Time</th>
+                  <th>Est. Wait</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staff-waiting-table-body">
+                <tr><td colspan="5" class="text-center"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/staff.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

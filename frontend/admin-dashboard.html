@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrator Console | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Admin Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="admin-dashboard.html" class="sidebar-brand">
+          <span>⚙️</span> SmartCare Admin
+        </a>
+        <button class="mobile-toggle" onclick="toggleSidebar()">&times;</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="nav-category">System Admin</div>
+        <a href="admin-dashboard.html" class="nav-link active">
+          <span class="nav-icon">📊</span> Executive Overview
+        </a>
+        <a href="staff-dashboard.html" class="nav-link">
+          <span class="nav-icon">⚡</span> Staff Operations
+        </a>
+        <a href="analytics.html" class="nav-link">
+          <span class="nav-icon">📈</span> Analytics & KPIs
+        </a>
+        <a href="patients.html" class="nav-link">
+          <span class="nav-icon">👥</span> User Management
+        </a>
+        <a href="doctors.html" class="nav-link">
+          <span class="nav-icon">👨‍⚕️</span> Clinical Doctors
+        </a>
+        <a href="staff-departments.html" class="nav-link">
+          <span class="nav-icon">🏥</span> OPD Departments
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title">Executive Hospital Administration Console</div>
+        </div>
+        <div class="header-right">
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar" style="background: linear-gradient(135deg, #0F172A, #DC2626);">AD</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Hospital Admin</div>
+              <div class="user-role-label" id="header-user-role">ADMINISTRATOR</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- System Health & Overview -->
+        <div class="card mb-3" style="background: linear-gradient(135deg, #0F172A, #1E293B); color: #FFF;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                <span class="badge badge-success">● System Operational</span>
+                <span style="font-size: 0.8rem; color: #94A3B8;">Version 1.0.0 • Supabase RLS Active</span>
+              </div>
+              <h2 style="color: #FFF; margin-bottom: 0.25rem;">SmartCare Queue AI Core Node</h2>
+              <p style="color: #94A3B8; font-size: 0.9rem;">Atomic token generation lock active • Zero concurrency collisions recorded.</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+              <a href="queue-management.html" class="btn btn-primary btn-sm">Open Live Queue</a>
+              <a href="analytics.html" class="btn btn-secondary btn-sm">Full Analytics</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Active Clinical Departments</div>
+              <div class="stat-value" id="admin-dept-count">12</div>
+              <div class="stat-subtext">All Operational</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-blue">🏥</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Duty Doctors Available</div>
+              <div class="stat-value" id="admin-doc-count">4</div>
+              <div class="stat-subtext">OPD Counters Active</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-green">👨‍⚕️</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Database Security</div>
+              <div class="stat-value" style="font-size: 1.3rem; color: var(--success);">Row Level Security</div>
+              <div class="stat-subtext">PostgreSQL 15 RLS Enabled</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-cyan">🛡️</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">AI Prediction Latency</div>
+              <div class="stat-value">12 ms</div>
+              <div class="stat-subtext">Sub-second Inference</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-amber">⚡</div>
+          </div>
+        </div>
+
+        <!-- Administrative Shortcuts -->
+        <div class="grid grid-3 gap-2">
+          <div class="card">
+            <h4>👥 Patient Records & Privacy</h4>
+            <p style="font-size: 0.88rem; margin: 0.5rem 0 1rem;">RLS prevents unauthorized cross-patient data access.</p>
+            <a href="patients.html" class="btn btn-outline btn-sm btn-block">Inspect Patient Directory</a>
+          </div>
+
+          <div class="card">
+            <h4>👨‍⚕️ Specialist Doctors & Counters</h4>
+            <p style="font-size: 0.88rem; margin: 0.5rem 0 1rem;">Manage room allocation, average consultation minutes, and status.</p>
+            <a href="doctors.html" class="btn btn-outline btn-sm btn-block">Manage Doctors</a>
+          </div>
+
+          <div class="card">
+            <h4>📈 Hospital Flow Analytics</h4>
+            <p style="font-size: 0.88rem; margin: 0.5rem 0 1rem;">Canvas charts, peak arrival distributions, and AI resource suggestions.</p>
+            <a href="analytics.html" class="btn btn-primary btn-sm btn-block">View System Insights</a>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!window.Auth.requireAuth(['admin'])) return;
+
+      try {
+        const [deptsRes, docsRes] = await Promise.all([
+          window.api.get('/departments'),
+          window.api.get('/doctors')
+        ]);
+        if (deptsRes.data) document.getElementById('admin-dept-count').textContent = deptsRes.data.length;
+        if (docsRes.data) {
+          const avail = docsRes.data.filter(d => d.status === 'available').length;
+          document.getElementById('admin-doc-count').textContent = `${avail} / ${docsRes.data.length}`;
+        }
+      } catch (err) {
+        console.warn('Admin stats load error:', err);
+      }
+    });
+  </script>
+</body>
+</html>

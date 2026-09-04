@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waiting History | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand"><span>🏥</span> SmartCare AI</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span></a>
+        <a href="queue.html" class="nav-link"><span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span></a>
+        <a href="qr-token.html" class="nav-link"><span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span></a>
+        <a href="waiting-history.html" class="nav-link active"><span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span></a>
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link"><span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span></a>
+        <a href="departments.html" class="nav-link"><span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span></a>
+        <a href="lab-tests.html" class="nav-link"><span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span></a>
+        <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span></a>
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link"><span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span></a>
+        <a href="best-time.html" class="nav-link"><span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span></a>
+        <a href="hospital-map.html" class="nav-link"><span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span></a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span></a>
+        <a href="feedback.html" class="nav-link"><span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span></a>
+        <a href="accessibility.html" class="nav-link"><span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 <span data-i18n="logout">Logout</span></button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title" data-i18n="waiting_history">Patient Waiting History</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- KPI METRICS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Total Visits</div>
+              <div class="stat-value" id="hist-total-visits">0</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-blue">🏥</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Average Wait Time</div>
+              <div class="stat-value" id="hist-avg-wait">0 min</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-cyan">⏱️</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Shortest Wait</div>
+              <div class="stat-value" id="hist-shortest-wait">0 min</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-green">⚡</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Longest Wait</div>
+              <div class="stat-value" id="hist-longest-wait">0 min</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-amber">⏳</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">Past Completed Visits</h3>
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Department</th>
+                  <th>Service</th>
+                  <th>Token Code</th>
+                  <th>Wait Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <tr><td colspan="6" class="text-center"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/history.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

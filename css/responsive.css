@@ -1,0 +1,65 @@
+/* ==============================================================================
+   SmartCare Queue AI - Responsive Stylesheet
+   ============================================================================== */
+
+@media (max-width: 1024px) {
+  .app-sidebar {
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .app-main {
+    margin-left: 0;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0 1rem;
+  }
+
+  .dashboard-content {
+    padding: 1.25rem;
+  }
+
+  .active-queue-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .banner-metrics {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .token-badge-large {
+    width: 100%;
+  }
+
+  .staff-action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .queue-action-buttons {
+    flex-direction: column;
+  }
+
+  .queue-action-buttons .btn {
+    width: 100%;
+  }
+
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}

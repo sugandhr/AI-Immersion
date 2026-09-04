@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Feedback & Ratings | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .star-rating-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .star-btn {
+      font-size: 1.6rem;
+      color: #CBD5E1;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+    .star-btn.active, .star-btn:hover {
+      color: #F59E0B;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand"><span>🏥</span> SmartCare AI</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span></a>
+        <a href="queue.html" class="nav-link"><span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span></a>
+        <a href="qr-token.html" class="nav-link"><span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span></a>
+        <a href="waiting-history.html" class="nav-link"><span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span></a>
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link"><span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span></a>
+        <a href="departments.html" class="nav-link"><span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span></a>
+        <a href="lab-tests.html" class="nav-link"><span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span></a>
+        <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span></a>
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link"><span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span></a>
+        <a href="best-time.html" class="nav-link"><span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span></a>
+        <a href="hospital-map.html" class="nav-link"><span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span></a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span></a>
+        <a href="feedback.html" class="nav-link active"><span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span></a>
+        <a href="accessibility.html" class="nav-link"><span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 <span data-i18n="logout">Logout</span></button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title" data-i18n="feedback">Patient Feedback & Ratings</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="card" style="max-width: 700px; margin: 0 auto;">
+          <h2>Rate Your Hospital Experience</h2>
+          <p style="margin-bottom: 1.5rem;">Your review directly assists our operations management in optimizing queues and staff allocation.</p>
+
+          <form id="feedback-form">
+            <div class="form-group">
+              <label class="form-label" for="feedback-visit-select">Select Completed OPD Visit</label>
+              <select id="feedback-visit-select" class="form-control" required></select>
+            </div>
+
+            <!-- Star Ratings Matrix -->
+            <div style="margin: 1.5rem 0;">
+              <div class="star-rating-row">
+                <div>
+                  <strong>Overall Experience</strong>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Overall satisfaction with OPD care</div>
+                </div>
+                <div id="stars-overall"></div>
+              </div>
+
+              <div class="star-rating-row">
+                <div>
+                  <strong>Queue Waiting Time</strong>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Timeliness from token to consultation</div>
+                </div>
+                <div id="stars-waiting"></div>
+              </div>
+
+              <div class="star-rating-row">
+                <div>
+                  <strong>Staff Courtesy & Assistance</strong>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Helpfulness of registration & desk nurses</div>
+                </div>
+                <div id="stars-staff"></div>
+              </div>
+
+              <div class="star-rating-row">
+                <div>
+                  <strong>Doctor Consultation</strong>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Attention, thoroughness, and communication</div>
+                </div>
+                <div id="stars-doctor"></div>
+              </div>
+
+              <div class="star-rating-row" style="border-bottom:none;">
+                <div>
+                  <strong>Hospital Facilities</strong>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Cleanliness, seating, and signage</div>
+                </div>
+                <div id="stars-facility"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="feedback-comment">Written Comments or Suggestions</label>
+              <textarea id="feedback-comment" class="form-control" placeholder="Share any compliments or areas where we could improve..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Submit Feedback</button>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/feedback.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

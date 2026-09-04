@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing & Payments | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/billing.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand"><span>🏥</span> SmartCare AI</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span></a>
+        <a href="queue.html" class="nav-link"><span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span></a>
+        <a href="qr-token.html" class="nav-link"><span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span></a>
+        <a href="waiting-history.html" class="nav-link"><span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span></a>
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link"><span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span></a>
+        <a href="departments.html" class="nav-link"><span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span></a>
+        <a href="lab-tests.html" class="nav-link"><span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span></a>
+        <a href="billing.html" class="nav-link active"><span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span></a>
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link"><span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span></a>
+        <a href="best-time.html" class="nav-link"><span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span></a>
+        <a href="hospital-map.html" class="nav-link"><span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span></a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span></a>
+        <a href="feedback.html" class="nav-link"><span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span></a>
+        <a href="accessibility.html" class="nav-link"><span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 <span data-i18n="logout">Logout</span></button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title" data-i18n="billing">Billing & Online Payments</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div style="margin-bottom: 1.5rem;">
+          <h2>Digital Invoices & Payments</h2>
+          <p>Settle consultation fees, lab investigations, and pharmacy charges digitally.</p>
+        </div>
+
+        <div id="bills-list-container">
+          <div class="card text-center" style="padding: 2rem;"><div class="spinner"></div></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Payment Simulator Modal -->
+  <div class="modal-overlay" id="payment-simulator-modal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h3>Simulate Digital Payment</h3>
+        <button style="background:none; border:none; font-size:1.5rem; cursor:pointer;" onclick="closePaymentModal()">&times;</button>
+      </div>
+
+      <div style="background: var(--surface-alt); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem; text-align: center;">
+        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Invoice Number</div>
+        <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;" id="modal-pay-bill-num">INV-2026-0891</div>
+        <div style="font-size: 2.25rem; font-weight: 800; color: var(--primary);" id="modal-pay-amount">₹900.00</div>
+      </div>
+
+      <div class="form-label">Select Simulated Payment Method:</div>
+      <div class="payment-methods-grid">
+        <div class="payment-method-card selected" data-method="UPI / QR Simulation">
+          <div style="font-size: 1.3rem;">📱</div>
+          <div>UPI / QR App</div>
+        </div>
+        <div class="payment-method-card" data-method="Debit / Credit Card">
+          <div style="font-size: 1.3rem;">💳</div>
+          <div>Card Simulation</div>
+        </div>
+        <div class="payment-method-card" data-method="Net Banking">
+          <div style="font-size: 1.3rem;">🏦</div>
+          <div>Net Banking</div>
+        </div>
+        <div class="payment-method-card" data-method="Cashless Insurance Desk">
+          <div style="font-size: 1.3rem;">🛡️</div>
+          <div>Insurance TPA</div>
+        </div>
+      </div>
+
+      <p style="font-size: 0.75rem; color: var(--text-light); margin-bottom: 1.25rem;">
+        ℹ️ Academic Simulation: No real money is charged. Payment is validated directly in the Supabase backend.
+      </p>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button class="btn btn-outline btn-block" onclick="closePaymentModal()">Cancel</button>
+        <button id="confirm-pay-btn" class="btn btn-primary btn-block">Confirm Simulated Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/billing.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

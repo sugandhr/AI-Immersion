@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital QR Token | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/queue.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand">
+          <span>🏥</span> SmartCare AI
+        </a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close menu">&times;</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span>
+        </a>
+        <a href="queue.html" class="nav-link">
+          <span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span>
+        </a>
+        <a href="qr-token.html" class="nav-link active">
+          <span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span>
+        </a>
+        <a href="waiting-history.html" class="nav-link">
+          <span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span>
+        </a>
+
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link">
+          <span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span>
+        </a>
+        <a href="departments.html" class="nav-link">
+          <span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span>
+        </a>
+        <a href="lab-tests.html" class="nav-link">
+          <span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span>
+        </a>
+        <a href="billing.html" class="nav-link">
+          <span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span>
+        </a>
+
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link">
+          <span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span>
+        </a>
+        <a href="best-time.html" class="nav-link">
+          <span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span>
+        </a>
+        <a href="hospital-map.html" class="nav-link">
+          <span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span>
+        </a>
+        <a href="notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span>
+        </a>
+        <a href="feedback.html" class="nav-link">
+          <span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span>
+        </a>
+        <a href="accessibility.html" class="nav-link">
+          <span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">
+          🚪 <span data-i18n="logout">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+          <div class="header-title" data-i18n="qr_token">Digital QR Token</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select" aria-label="Language">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="card" id="qr-token-card" style="max-width: 500px; margin: 0 auto; text-align: center; padding: 2.5rem;">
+          <div class="token-badge-label">Active Hospital Token</div>
+          <div class="token-badge-code" id="qr-token-code">--</div>
+          <div id="qr-dept-name" style="font-weight: 600; color: var(--text-muted); margin-bottom: 1.5rem;">Connecting...</div>
+
+          <!-- Safe Canvas QR Code -->
+          <div style="background: #FFFFFF; padding: 1.25rem; border-radius: var(--radius-lg); display: inline-block; box-shadow: var(--shadow-md); margin-bottom: 1.5rem;">
+            <canvas id="qr-canvas" width="220" height="220" style="display: block;"></canvas>
+          </div>
+
+          <!-- Token Metrics -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--surface-alt); padding: 0.85rem; border-radius: var(--radius-md);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Patients Ahead</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: var(--text-main);" id="qr-patients-ahead">0</div>
+            </div>
+            <div style="background: var(--surface-alt); padding: 0.85rem; border-radius: var(--radius-md);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Estimated Wait</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary);" id="qr-wait-time">15 min</div>
+            </div>
+          </div>
+
+          <!-- Safe Payload display -->
+          <div style="background: #F1F5F9; border-radius: var(--radius-sm); padding: 0.5rem; font-size: 0.78rem; font-family: monospace; color: #475569; margin-bottom: 1.5rem; word-break: break-all;">
+            Safe Identifier: <span id="qr-payload-text">SMARTCARE:DEMO</span>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn btn-outline btn-block" onclick="verifyCurrentToken()">Verify Token</button>
+            <a href="hospital-map.html" class="btn btn-primary btn-block">Find Room on Map</a>
+          </div>
+
+          <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 1.25rem;">
+            🔒 Security Notice: QR codes encode only anonymized transaction references. No medical diagnoses or personal passwords are stored on this token.
+          </p>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/qr-token.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('app-sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

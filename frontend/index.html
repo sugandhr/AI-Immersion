@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartCare Queue AI | Less Waiting. Better Care.</title>
+  <meta name="description" content="AI-Powered Hospital Queue Management System. Join queues digitally, track position in real-time, get AI wait estimates, and navigate hospital OPDs.">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    /* Landing Specific Styles */
+    .landing-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--surface-border);
+      padding: 0.9rem 0;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero-section {
+      padding: 5rem 0 4rem;
+      background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.12) 0%, rgba(37, 99, 235, 0.06) 60%, var(--bg) 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline {
+      font-size: 3.25rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      color: var(--text-main);
+    }
+
+    .hero-headline span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subheading {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 1.5rem;
+    }
+
+    .hero-visual-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+    }
+
+    .token-preview-bubble {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #FFF;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 20px var(--primary-glow);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      margin-top: 3rem;
+    }
+
+    .feature-box {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .feature-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Emergency Strip */
+    .emergency-strip {
+      background: #DC2626;
+      color: #FFFFFF;
+      padding: 1.5rem 0;
+      margin: 4rem 0;
+      border-radius: var(--radius-lg);
+    }
+
+    .landing-footer {
+      background: #0F172A;
+      color: #94A3B8;
+      padding: 4rem 0 2rem;
+      margin-top: 5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-col h4 {
+      color: #FFFFFF;
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      color: #94A3B8;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER NAVBAR -->
+  <header class="landing-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <span>🏥</span> SmartCare Queue AI
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#departments">Departments</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#emergency">Emergency</a></li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="lang-selector">
+          🌐
+          <select id="global-lang-select" aria-label="Select Language">
+            <option value="en">EN</option>
+            <option value="ta">தமிழ்</option>
+            <option value="hi">हिन्दी</option>
+          </select>
+        </div>
+
+        <a href="login.html" class="btn btn-outline btn-sm">Patient Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+        <a href="staff-login.html" class="btn btn-secondary btn-sm">Staff Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          ✨ Less Waiting. Better Care.
+        </div>
+        <h1 class="hero-headline">
+          Skip the Long Queue. Spend More Time on <span>What Matters.</span>
+        </h1>
+        <p class="hero-subheading">
+          SmartCare Queue AI helps patients digitally join hospital queues, track their real-time position, receive AI-estimated waiting times, manage appointments, and navigate the hospital with ease.
+        </p>
+
+        <div class="hero-cta">
+          <a href="queue.html" class="btn btn-primary btn-lg">Join Queue Digitally</a>
+          <a href="#features" class="btn btn-outline btn-lg">Explore Features</a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <div style="font-size: 1.85rem; font-weight: 800; color: var(--primary);">45%</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Wait Time Reduction</div>
+          </div>
+          <div>
+            <div style="font-size: 1.85rem; font-weight: 800; color: var(--secondary);">12+</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Connected OPDs</div>
+          </div>
+          <div>
+            <div style="font-size: 1.85rem; font-weight: 800; color: var(--success);">100%</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Real-Time Updates</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Concept Preview Card -->
+      <div class="hero-visual-card">
+        <div class="token-preview-bubble">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Live Patient OPD Token</div>
+          <div style="font-size: 3rem; font-weight: 800; line-height: 1.1; margin: 0.35rem 0;">C-27</div>
+          <div style="font-size: 0.9rem;">Cardiology Consultation • Room 204</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+          <div class="card" style="padding: 1rem; text-align: center; background: var(--surface-alt);">
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Now Serving</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">C-21</div>
+          </div>
+          <div class="card" style="padding: 1rem; text-align: center; background: var(--surface-alt);">
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Patients Ahead</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--warning);">6</div>
+          </div>
+        </div>
+
+        <div style="background: var(--primary-light); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 1.4rem;">🤖</span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">AI Wait Prediction</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Confidence: 94%</div>
+            </div>
+          </div>
+          <div style="font-size: 1.2rem; font-weight: 800; color: var(--primary);">~38 mins</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" style="padding: 5rem 0;">
+    <div class="container text-center">
+      <span class="hero-badge">Seamless Workflow</span>
+      <h2>How SmartCare Queue AI Works</h2>
+      <p style="max-width: 650px; margin: 0.5rem auto 3rem;">From registration to consultation, our intelligent system ensures zero waiting room congestion.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: left;">
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">1️⃣</div>
+          <h4>Select Department</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.35rem;">Choose from General Medicine, Cardiology, Pediatrics, Orthopedics, or Diagnostics.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">2️⃣</div>
+          <h4>Get Digital Token</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.35rem;">Receive an instant secure QR token with real-time wait estimation powered by AI.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">3️⃣</div>
+          <h4>Track from Anywhere</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.35rem;">Relax at the cafeteria or wait from home while receiving live queue notifications.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">4️⃣</div>
+          <h4>Indoor Navigation</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.35rem;">Follow step-by-step hospital floor maps right to your doctor's consultation counter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section id="features" style="padding: 5rem 0; background: var(--surface);">
+    <div class="container text-center">
+      <span class="hero-badge">Next-Gen Hospital Tech</span>
+      <h2>Comprehensive Digital Healthcare Platform</h2>
+      <p style="max-width: 650px; margin: 0.5rem auto 2rem;">Designed specifically for patients, doctors, and hospital operations staff.</p>
+
+      <div class="features-grid text-left">
+        <div class="feature-box">
+          <div class="feature-icon">⚡</div>
+          <h4>Concurrency-Safe Queues</h4>
+          <p>Atomic PostgreSQL token increments prevent duplicate ticket numbers even under massive concurrent patient traffic.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🤖</div>
+          <h4>AI Wait-Time Prediction</h4>
+          <p>Calculates dynamic wait durations using active doctors, service load, historical duration, and congestion multipliers.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🕒</div>
+          <h4>Best Time to Visit</h4>
+          <p>Identifies low-traffic windows (e.g., 2:00 PM – 3:00 PM) to distribute outpatient arrivals and prevent overcrowding.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🗺️</div>
+          <h4>Interactive Hospital Map</h4>
+          <p>Indoor wayfinding with waypoint routing, walking time calculations, and multi-floor path guidance.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">💳</div>
+          <h4>Online Simulated Billing</h4>
+          <p>Digital fee breakdowns, one-click simulated UPI settlements, and instantaneous receipt generation.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🔬</div>
+          <h4>Diagnostic Lab Tracker</h4>
+          <p>Four-stage status tracking (Ordered, Sample Collected, Processing, Report Ready) with automated patient alerts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMERGENCY NOTICE (Section 35) -->
+  <section id="emergency" class="container">
+    <div class="emergency-strip" style="padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <div style="font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
+          🚨 Emergency Department & Trauma Bay
+        </div>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-top: 0.35rem; font-size: 0.95rem;">
+          If you or someone around you is in acute medical distress, please proceed directly to Ground Floor, Gate 2 without joining a digital queue.
+        </p>
+      </div>
+      <div style="display: flex; gap: 1rem;">
+        <a href="tel:919876500000" class="btn btn-outline" style="background: #FFF; color: #DC2626; border-color: #FFF;">📞 Call Emergency: +91 98765 00000</a>
+        <a href="hospital-map.html?dest=Emergency" class="btn" style="background: rgba(0,0,0,0.3); color: #FFF;">Find Emergency Bay</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand-logo" style="color: #FFFFFF; margin-bottom: 1rem;">
+          <span>🏥</span> SmartCare Queue AI
+        </div>
+        <p style="color: #94A3B8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+          Empowering modern healthcare through digital queue optimization, predictive AI modeling, and intelligent hospital wayfinding.
+        </p>
+        <p style="font-size: 0.8rem; color: #64748B;">
+          College Capstone Project Demonstration • Fictional Demo Data Only.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Portals</h4>
+        <ul class="footer-links">
+          <li><a href="login.html">Patient Login</a></li>
+          <li><a href="register.html">Patient Registration</a></li>
+          <li><a href="staff-login.html">Staff & Doctor Login</a></li>
+          <li><a href="queue.html">Join Live Queue</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Features</h4>
+        <ul class="footer-links">
+          <li><a href="best-time.html">Best Time to Visit</a></li>
+          <li><a href="hospital-map.html">Hospital Indoor Map</a></li>
+          <li><a href="lab-tests.html">Diagnostic Tracker</a></li>
+          <li><a href="billing.html">Simulated Billing</a></li>
+          <li><a href="accessibility.html">Accessibility Controls</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Medical Disclaimer</h4>
+        <p style="font-size: 0.82rem; color: #94A3B8; line-height: 1.5;">
+          SmartCare Queue AI is an administrative and operational queue management system. It does NOT provide medical diagnosis, prescribe pharmaceutical drugs, or replace professional physician consultations.
+        </p>
+      </div>
+    </div>
+
+    <div class="container text-center" style="border-top: 1px solid #1E293B; padding-top: 1.5rem; font-size: 0.85rem;">
+      © 2026 SmartCare Queue AI. All rights reserved. Less Waiting. Better Care.
+    </div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+</body>
+</html>

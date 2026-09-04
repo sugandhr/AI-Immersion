@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Map & Indoor Navigation | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/map.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand">
+          <span>🏥</span> SmartCare AI
+        </a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close menu">&times;</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span>
+        </a>
+        <a href="queue.html" class="nav-link">
+          <span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span>
+        </a>
+        <a href="qr-token.html" class="nav-link">
+          <span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span>
+        </a>
+        <a href="waiting-history.html" class="nav-link">
+          <span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span>
+        </a>
+
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link">
+          <span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span>
+        </a>
+        <a href="departments.html" class="nav-link">
+          <span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span>
+        </a>
+        <a href="lab-tests.html" class="nav-link">
+          <span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span>
+        </a>
+        <a href="billing.html" class="nav-link">
+          <span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span>
+        </a>
+
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link">
+          <span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span>
+        </a>
+        <a href="best-time.html" class="nav-link">
+          <span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span>
+        </a>
+        <a href="hospital-map.html" class="nav-link active">
+          <span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span>
+        </a>
+        <a href="notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span>
+        </a>
+        <a href="feedback.html" class="nav-link">
+          <span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span>
+        </a>
+        <a href="accessibility.html" class="nav-link">
+          <span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">
+          🚪 <span data-i18n="logout">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+          <div class="header-title" data-i18n="hospital_map">Interactive Hospital Map</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select" aria-label="Language">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="map-layout">
+          
+          <!-- Route Controls -->
+          <div class="map-controls-panel">
+            <h3>Find Your Way</h3>
+            
+            <div class="form-group">
+              <label class="form-label" for="location-search-input">Quick Location Search</label>
+              <input type="text" id="location-search-input" class="form-control" placeholder="e.g. Cardiology, Lab, Billing...">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Floor View</label>
+              <div class="floor-selector">
+                <button class="floor-tab active" data-floor="Ground Floor" onclick="switchFloor('Ground Floor')">Ground</button>
+                <button class="floor-tab" data-floor="First Floor" onclick="switchFloor('First Floor')">Floor 1</button>
+                <button class="floor-tab" data-floor="Second Floor" onclick="switchFloor('Second Floor')">Floor 2</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="start-location-select">Starting Point</label>
+              <select id="start-location-select" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="end-location-select">Destination OPD / Counter</label>
+              <select id="end-location-select" class="form-control"></select>
+            </div>
+
+            <button id="calculate-route-btn" class="btn btn-primary btn-block">
+              🗺️ Calculate Route
+            </button>
+
+            <!-- Dynamic Route Guidance Steps -->
+            <div id="route-summary-container">
+              <div class="route-summary-box">
+                <div class="route-summary-header">
+                  <span>🚶 Walking Route</span>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Select your starting point and destination to compute indoor route waypoints.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floorplan Viewport -->
+          <div class="map-canvas-container">
+            <canvas id="hospital-canvas"></canvas>
+          </div>
+
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('app-sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

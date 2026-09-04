@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Controls | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand"><span>🏥</span> SmartCare AI</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span></a>
+        <a href="queue.html" class="nav-link"><span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span></a>
+        <a href="qr-token.html" class="nav-link"><span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span></a>
+        <a href="waiting-history.html" class="nav-link"><span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span></a>
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link"><span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span></a>
+        <a href="departments.html" class="nav-link"><span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span></a>
+        <a href="lab-tests.html" class="nav-link"><span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span></a>
+        <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span></a>
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link"><span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span></a>
+        <a href="best-time.html" class="nav-link"><span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span></a>
+        <a href="hospital-map.html" class="nav-link"><span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span></a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span></a>
+        <a href="feedback.html" class="nav-link"><span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span></a>
+        <a href="accessibility.html" class="nav-link active"><span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 <span data-i18n="logout">Logout</span></button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title" data-i18n="accessibility">Accessibility Controls</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="card" style="max-width: 800px; margin: 0 auto;">
+          <h2>Accessibility & Inclusive Design Settings</h2>
+          <p style="margin-bottom: 2rem;">Customize contrast, font scaling, and voice feedback for improved visual and auditory accessibility.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <!-- High Contrast Toggle -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem; background: var(--surface-alt); border-radius: var(--radius-md);">
+              <div>
+                <h4 style="margin-bottom: 0.25rem;">High Contrast Mode</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Invert background to pure black with high luminance contrast (WCAG 2.1 AAA).</p>
+              </div>
+              <button id="toggle-contrast-btn" class="btn btn-primary btn-sm">Toggle High Contrast</button>
+            </div>
+
+            <!-- Font Sizing -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem; background: var(--surface-alt); border-radius: var(--radius-md);">
+              <div>
+                <h4 style="margin-bottom: 0.25rem;">Text Sizing & Zoom</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Scale application font size up or down for easier reading.</p>
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <button id="font-minus-btn" class="btn btn-outline btn-sm">A- (Reset)</button>
+                <button id="font-plus-btn" class="btn btn-primary btn-sm">A+ (Increase)</button>
+              </div>
+            </div>
+
+            <!-- Voice Assistance -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem; background: var(--surface-alt); border-radius: var(--radius-md);">
+              <div>
+                <h4 style="margin-bottom: 0.25rem;">Speech & Voice Queue Announcer</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Listen to current live token calls and queue progress using synthetic speech audio.</p>
+              </div>
+              <button id="voice-announce-btn" class="btn btn-secondary btn-sm">🔊 Announce Queue Status</button>
+            </div>
+
+            <!-- Multi-Language -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem; background: var(--surface-alt); border-radius: var(--radius-md);">
+              <div>
+                <h4 style="margin-bottom: 0.25rem;">Interface Language</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Select your preferred language (English, தமிழ், हिन्दी).</p>
+              </div>
+              <div style="font-weight: 600; color: var(--primary);">
+                Use the top-right header selector 🌐
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

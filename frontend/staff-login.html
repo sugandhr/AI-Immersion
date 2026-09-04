@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff & Clinical Portal | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="auth-wrapper" style="background: radial-gradient(circle at 90% 10%, rgba(6, 182, 212, 0.15) 0%, rgba(15, 23, 42, 0.04) 100%), var(--bg);">
+    <div class="auth-container">
+      
+      <!-- Staff Sidebar -->
+      <div class="auth-sidebar" style="background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #0891B2 100%);">
+        <div>
+          <a href="index.html" class="auth-brand">
+            <span>🛡️</span> SmartCare Clinical Operations
+          </a>
+        </div>
+
+        <div class="auth-sidebar-hero">
+          <h2>Streamline OPD Flow & Clinical Operations.</h2>
+          <p>Role-based dashboard for nurses, attending physicians, lab technicians, and hospital administrators.</p>
+          
+          <ul class="auth-feature-list">
+            <li>✓ Live Queue Calling & Recalls</li>
+            <li>✓ Multi-Counter Coordination</li>
+            <li>✓ Diagnostic Lab Approvals</li>
+            <li>✓ Operational Analytics & Peak Hours</li>
+          </ul>
+        </div>
+
+        <div class="auth-sidebar-footer">
+          Authorized Medical Staff Access Only • 2026
+        </div>
+      </div>
+
+      <!-- Staff Form -->
+      <div class="auth-main">
+        <div class="auth-header">
+          <h1>Staff & Doctor Login</h1>
+          <p>Sign in with your hospital credentials to access counter controls.</p>
+        </div>
+
+        <!-- Demo Accounts Box -->
+        <div class="demo-credentials-box">
+          <p>🔑 Quick Demo Role Accounts (Click to test):</p>
+          <div class="demo-chips">
+            <span class="demo-chip" onclick="fillStaff('staff@smartcare.org', 'password123')">Staff: Nurse Ananya</span>
+            <span class="demo-chip" onclick="fillStaff('arun.cardio@smartcare.org', 'password123')">Doctor: Dr. Arun Kumar</span>
+            <span class="demo-chip" onclick="fillStaff('admin@smartcare.org', 'password123')">Admin: Administrator</span>
+          </div>
+        </div>
+
+        <form id="staff-login-form">
+          <div class="form-group">
+            <label class="form-label" for="staff-email">Official Staff Email</label>
+            <input type="email" id="staff-email" class="form-control" placeholder="staff@smartcare.org" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="staff-password">Password</label>
+            <input type="password" id="staff-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" id="staff-login-btn" class="btn btn-secondary btn-block btn-lg" style="margin-top: 1rem;">
+            Access Operational Portal
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Are you a patient? <a href="login.html" style="font-weight: 600;">Go to Patient Login</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script>
+    function fillStaff(email, pass) {
+      document.getElementById('staff-email').value = email;
+      document.getElementById('staff-password').value = pass;
+    }
+
+    document.getElementById('staff-login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('staff-email').value.trim();
+      const pass = document.getElementById('staff-password').value;
+      const btn = document.getElementById('staff-login-btn');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Verifying credentials...';
+
+      try {
+        await window.Auth.login(email, pass);
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = 'Access Operational Portal';
+      }
+    });
+  </script>
+</body>
+</html>

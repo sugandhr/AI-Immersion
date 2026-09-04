@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/queue.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand">
+          <span>🏥</span> SmartCare AI
+        </a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close menu">&times;</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link active">
+          <span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span>
+        </a>
+        <a href="queue.html" class="nav-link">
+          <span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span>
+        </a>
+        <a href="qr-token.html" class="nav-link">
+          <span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span>
+        </a>
+        <a href="waiting-history.html" class="nav-link">
+          <span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span>
+        </a>
+
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link">
+          <span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span>
+        </a>
+        <a href="departments.html" class="nav-link">
+          <span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span>
+        </a>
+        <a href="lab-tests.html" class="nav-link">
+          <span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span>
+        </a>
+        <a href="billing.html" class="nav-link">
+          <span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span>
+        </a>
+
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link">
+          <span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span>
+        </a>
+        <a href="best-time.html" class="nav-link">
+          <span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span>
+        </a>
+        <a href="hospital-map.html" class="nav-link">
+          <span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span>
+        </a>
+        <a href="notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span>
+        </a>
+        <a href="feedback.html" class="nav-link">
+          <span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span>
+        </a>
+        <a href="accessibility.html" class="nav-link">
+          <span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">
+          🚪 <span data-i18n="logout">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN APP AREA -->
+    <div class="app-main">
+      
+      <!-- TOP HEADER -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+          <div class="header-title" data-i18n="dashboard">Patient Dashboard</div>
+        </div>
+
+        <div class="header-right">
+          <!-- Language Selector -->
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select" aria-label="Change Language">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+
+          <!-- Notification Bell -->
+          <a href="notifications.html" class="notif-btn" aria-label="View notifications">
+            🔔
+            <span class="notif-badge" id="header-notif-badge" style="display: none;">0</span>
+          </a>
+
+          <!-- User Badge -->
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <main class="dashboard-content">
+
+        <!-- ACTIVE QUEUE DYNAMIC CONTAINER -->
+        <div id="active-queue-container">
+          <div class="card text-center" style="padding: 2.5rem;">
+            <div class="spinner"></div>
+            <p class="mt-1">Connecting to live hospital queue...</p>
+          </div>
+        </div>
+
+        <!-- QUICK SUMMARY CARDS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Confirmed Appointments</div>
+              <div class="stat-value" id="stat-appointments-count">0</div>
+              <div class="stat-subtext">Active Doctor Slots</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-blue">🗓️</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Pending Invoices</div>
+              <div class="stat-value" id="stat-bills-count">0</div>
+              <div class="stat-subtext">Digital OPD Bills</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-cyan">💳</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Unread Alerts</div>
+              <div class="stat-value" id="stat-notifications-count">0</div>
+              <div class="stat-subtext">Queue & Lab Notices</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-amber">🔔</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Best Visiting Slot</div>
+              <div class="stat-value" style="font-size: 1.25rem;">2 - 3 PM</div>
+              <div class="stat-subtext">Low Crowd Window</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-green">🕒</div>
+          </div>
+        </div>
+
+        <!-- QUICK SHORTCUTS GRID -->
+        <h3 style="margin-bottom: 1rem;">Fast OPD Actions</h3>
+        <div class="grid grid-3 gap-2">
+          <div class="card">
+            <h4>🎟️ Join New Queue</h4>
+            <p style="font-size: 0.88rem; margin: 0.5rem 0 1rem;">Pick from 12 medical departments and get your atomic token.</p>
+            <a href="queue.html" class="btn btn-primary btn-sm btn-block">Join Now</a>
+          </div>
+
+          <div class="card">
+            <h4>🗺️ Find My Doctor's Room</h4>
+            <p style="font-size: 0.88rem; margin: 0.5rem 0 1rem;">Interactive indoor walking map and floor plan guidance.</p>
+            <a href="hospital-map.html" class="btn btn-outline btn-sm btn-block">Open Map</a>
+          </div>
+
+          <div class="card">
+            <h4>🤖 Ask SmartCare AI</h4>
+            <p style="font-size: 0.88rem; margin: 0.5rem 0 1rem;">Query token progress, directions, lab reports, and visiting hours.</p>
+            <a href="ai-assistant.html" class="btn btn-secondary btn-sm btn-block">Launch Assistant</a>
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/patient.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('app-sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

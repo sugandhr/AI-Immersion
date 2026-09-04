@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Appointments | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand"><span>🏥</span> SmartCare AI</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span></a>
+        <a href="queue.html" class="nav-link"><span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span></a>
+        <a href="qr-token.html" class="nav-link"><span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span></a>
+        <a href="waiting-history.html" class="nav-link"><span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span></a>
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link active"><span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span></a>
+        <a href="departments.html" class="nav-link"><span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span></a>
+        <a href="lab-tests.html" class="nav-link"><span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span></a>
+        <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span></a>
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link"><span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span></a>
+        <a href="best-time.html" class="nav-link"><span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span></a>
+        <a href="hospital-map.html" class="nav-link"><span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span></a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span></a>
+        <a href="feedback.html" class="nav-link"><span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span></a>
+        <a href="accessibility.html" class="nav-link"><span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 <span data-i18n="logout">Logout</span></button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title" data-i18n="appointments">Doctor Appointments</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2>Scheduled Consultations</h2>
+            <p>View upcoming visits or book slots with clinical specialists.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openBookModal()">+ Book New Appointment</button>
+        </div>
+
+        <div id="appointments-list-container">
+          <div class="card text-center" style="padding: 2rem;"><div class="spinner"></div></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="book-appointment-modal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h3>Book Specialist Appointment</h3>
+        <button style="background:none; border:none; font-size:1.5rem; cursor:pointer;" onclick="closeBookModal()">&times;</button>
+      </div>
+
+      <form id="book-appointment-form">
+        <div class="form-group">
+          <label class="form-label" for="book-dept-select">Department</label>
+          <select id="book-dept-select" class="form-control" required></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="book-doctor-select">Specialist Doctor</label>
+          <select id="book-doctor-select" class="form-control" required>
+            <option value="">Select department first</option>
+          </select>
+        </div>
+
+        <div class="grid grid-2 gap-2">
+          <div class="form-group">
+            <label class="form-label" for="book-date-input">Date</label>
+            <input type="date" id="book-date-input" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="book-time-select">Time Slot</label>
+            <select id="book-time-select" class="form-control" required>
+              <option value="09:00 AM">09:00 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:30 AM">11:30 AM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="03:30 PM">03:30 PM</option>
+              <option value="04:30 PM">04:30 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="book-reason-input">Reason for Consultation</label>
+          <textarea id="book-reason-input" class="form-control" placeholder="Brief symptoms or routine follow-up note..."></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-outline" onclick="closeBookModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/appointments.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

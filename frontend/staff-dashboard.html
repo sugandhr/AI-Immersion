@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Operations Dashboard | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Staff Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="staff-dashboard.html" class="sidebar-brand">
+          <span>🛡️</span> SmartCare Ops
+        </a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close menu">&times;</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Control</div>
+        <a href="staff-dashboard.html" class="nav-link active">
+          <span class="nav-icon">📊</span> Dashboard
+        </a>
+        <a href="queue-management.html" class="nav-link">
+          <span class="nav-icon">⚡</span> Live Queue Management
+        </a>
+
+        <div class="nav-category">Hospital Operations</div>
+        <a href="patients.html" class="nav-link">
+          <span class="nav-icon">👥</span> Patient Directory
+        </a>
+        <a href="doctors.html" class="nav-link">
+          <span class="nav-icon">👨‍⚕️</span> Doctors & Counters
+        </a>
+        <a href="staff-departments.html" class="nav-link">
+          <span class="nav-icon">🏥</span> Departments
+        </a>
+        <a href="staff-lab.html" class="nav-link">
+          <span class="nav-icon">🔬</span> Laboratory Processing
+        </a>
+        <a href="staff-billing.html" class="nav-link">
+          <span class="nav-icon">💳</span> OPD Billing Desk
+        </a>
+
+        <div class="nav-category">Intelligence & Review</div>
+        <a href="analytics.html" class="nav-link">
+          <span class="nav-icon">📈</span> Operational Analytics
+        </a>
+        <a href="staff-feedback.html" class="nav-link">
+          <span class="nav-icon">⭐</span> Patient Feedback
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">
+          🚪 Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title">Staff Operations & Queue Controller</div>
+        </div>
+
+        <div class="header-right">
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar" style="background: linear-gradient(135deg, #0F172A, #2563EB);">ST</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Staff Nurse</div>
+              <div class="user-role-label" id="header-user-role">STAFF</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        
+        <!-- TOP KPI STATS (From Supabase) -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Total Patients Today</div>
+              <div class="stat-value" id="staff-kpi-total">0</div>
+              <div class="stat-subtext">Across All OPDs</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-blue">👥</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Waiting in Queue</div>
+              <div class="stat-value" id="staff-kpi-waiting" style="color: var(--warning);">0</div>
+              <div class="stat-subtext">Awaiting Call</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-amber">⏳</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Patients Served</div>
+              <div class="stat-value" id="staff-kpi-served" style="color: var(--success);">0</div>
+              <div class="stat-subtext">Completed OPD Visits</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-green">✅</div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Average Waiting Time</div>
+              <div class="stat-value" id="staff-kpi-avgwait">0 min</div>
+              <div class="stat-subtext">Dynamic Hospital Avg</div>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-cyan">⏱️</div>
+          </div>
+        </div>
+
+        <!-- OPERATIONAL QUEUE ACTION BAR -->
+        <div class="staff-action-bar">
+          <div class="current-counter-info">
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">ACTIVE COUNTER:</span>
+              <div class="counter-badge-display" id="current-counter-display">Counter 1</div>
+            </div>
+
+            <div style="margin-left: 1rem;">
+              <label for="staff-queue-select" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); display: block;">SELECT OPD QUEUE:</label>
+              <select id="staff-queue-select" class="form-control" style="width: auto; min-width: 250px; padding: 0.45rem 0.85rem;"></select>
+            </div>
+
+            <div style="margin-left: 0.5rem;">
+              <label for="counter-number-select" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); display: block;">COUNTER DESK:</label>
+              <select id="counter-number-select" class="form-control" style="width: auto; padding: 0.45rem 0.85rem;">
+                <option value="Counter 1">Counter 1</option>
+                <option value="Counter 2">Counter 2</option>
+                <option value="Room 204">Room 204 (Cardiology)</option>
+                <option value="Room 101">Room 101 (Gen Med)</option>
+                <option value="Lab Phlebotomy Bay">Lab Bay 1</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="queue-action-buttons">
+            <button class="btn btn-primary" onclick="callNextPatient()">📢 Call Next Patient</button>
+            <button class="btn btn-outline" style="background:#FFF;" onclick="startServingPatient()">▶️ Start Serving</button>
+            <button class="btn btn-outline" style="background:#FFF;" onclick="recallCurrentPatient()">🔁 Recall</button>
+            <button class="btn btn-success" onclick="completeCurrentPatient()">✓ Mark Complete</button>
+          </div>
+        </div>
+
+        <!-- NOW SERVING SPOTLIGHT CARD -->
+        <div class="serving-spotlight-card">
+          <div class="spotlight-left">
+            <span class="badge badge-info mb-1" id="staff-serving-status">STATUS</span>
+            <h3 id="staff-serving-patient">No Patient Active</h3>
+            <p>Ready to call next ticket in queue.</p>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.8rem; opacity: 0.8; text-transform: uppercase;">Current Token</div>
+            <div class="spotlight-token-code" id="staff-serving-token">--</div>
+          </div>
+        </div>
+
+        <!-- LIVE WAITING LIST TABLE -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3>Waiting Patients Queue</h3>
+            <span style="font-size: 0.82rem; color: var(--text-muted);">Auto-refreshes in real-time</span>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Patient Name</th>
+                  <th>Joined Time</th>
+                  <th>Est. Wait</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staff-waiting-table-body">
+                <tr><td colspan="5" class="text-center"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/staff.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

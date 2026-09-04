@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Login | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-container">
+      
+      <!-- Auth Sidebar -->
+      <div class="auth-sidebar">
+        <div>
+          <a href="index.html" class="auth-brand">
+            <span>🏥</span> SmartCare Queue AI
+          </a>
+        </div>
+
+        <div class="auth-sidebar-hero">
+          <h2>Your Care, Without the Waiting Room.</h2>
+          <p>Join outpatient queues digitally, receive live status alerts, and navigate directly to your consultation room.</p>
+          
+          <ul class="auth-feature-list">
+            <li>✓ Real-Time Token Tracking</li>
+            <li>✓ AI Wait Time Predictions</li>
+            <li>✓ Indoor Hospital Navigation</li>
+            <li>✓ Digital Lab Test Results</li>
+          </ul>
+        </div>
+
+        <div class="auth-sidebar-footer">
+          Less Waiting. Better Care. • 2026
+        </div>
+      </div>
+
+      <!-- Auth Main Form -->
+      <div class="auth-main">
+        <div class="auth-header">
+          <h1>Patient Login</h1>
+          <p>Sign in to access your digital OPD tokens and appointments.</p>
+        </div>
+
+        <!-- Demo Quick Select Box -->
+        <div class="demo-credentials-box">
+          <p>💡 Instant Demo Credentials (Click to fill):</p>
+          <div class="demo-chips">
+            <span class="demo-chip" onclick="fillDemo('patient@smartcare.org', 'password123')">Patient: Priya Sharma</span>
+            <span class="demo-chip" onclick="fillDemo('rahul.raj@example.com', 'password123')">Patient: Rahul Raj</span>
+          </div>
+        </div>
+
+        <form id="patient-login-form">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <input type="email" id="login-email" class="form-control" placeholder="name@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label class="form-label" for="login-password" style="margin-bottom: 0;">Password</label>
+              <a href="forgot-password.html" style="font-size: 0.82rem;">Forgot password?</a>
+            </div>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" id="login-submit-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: 1rem;">
+            Sign In to Dashboard
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Don't have an account? <a href="register.html" style="font-weight: 600;">Register here</a>
+          <div style="margin-top: 0.75rem;">
+            <a href="staff-login.html" style="color: var(--secondary); font-size: 0.85rem;">Hospital Staff or Doctor? Click here</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script>
+    function fillDemo(email, pass) {
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = pass;
+    }
+
+    document.getElementById('patient-login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const pass = document.getElementById('login-password').value;
+      const btn = document.getElementById('login-submit-btn');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Signing in...';
+
+      try {
+        await window.Auth.login(email, pass);
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = 'Sign In to Dashboard';
+      }
+    });
+  </script>
+</body>
+</html>

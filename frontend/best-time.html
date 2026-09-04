@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Time to Visit | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="patient-dashboard.html" class="sidebar-brand"><span>🏥</span> SmartCare AI</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Services</div>
+        <a href="patient-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> <span data-i18n="dashboard">Dashboard</span></a>
+        <a href="queue.html" class="nav-link"><span class="nav-icon">🎟️</span> <span data-i18n="join_queue">Join Queue</span></a>
+        <a href="qr-token.html" class="nav-link"><span class="nav-icon">📱</span> <span data-i18n="qr_token">QR Token</span></a>
+        <a href="waiting-history.html" class="nav-link"><span class="nav-icon">📜</span> <span data-i18n="waiting_history">Waiting History</span></a>
+        <div class="nav-category">Clinical OPD</div>
+        <a href="appointments.html" class="nav-link"><span class="nav-icon">🗓️</span> <span data-i18n="appointments">Appointments</span></a>
+        <a href="departments.html" class="nav-link"><span class="nav-icon">🏥</span> <span data-i18n="departments">Departments</span></a>
+        <a href="lab-tests.html" class="nav-link"><span class="nav-icon">🔬</span> <span data-i18n="lab_tests">Lab Tests</span></a>
+        <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> <span data-i18n="billing">Billing & Payments</span></a>
+        <div class="nav-category">Smart Assistance</div>
+        <a href="ai-assistant.html" class="nav-link"><span class="nav-icon">🤖</span> <span data-i18n="ai_assistant">AI Assistant</span></a>
+        <a href="best-time.html" class="nav-link active"><span class="nav-icon">🕒</span> <span data-i18n="best_time">Best Time to Visit</span></a>
+        <a href="hospital-map.html" class="nav-link"><span class="nav-icon">🗺️</span> <span data-i18n="hospital_map">Hospital Map</span></a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> <span data-i18n="notifications">Notifications</span></a>
+        <a href="feedback.html" class="nav-link"><span class="nav-icon">⭐</span> <span data-i18n="feedback">Feedback</span></a>
+        <a href="accessibility.html" class="nav-link"><span class="nav-icon">♿</span> <span data-i18n="accessibility">Accessibility</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 <span data-i18n="logout">Logout</span></button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title" data-i18n="best_time">AI Best Time to Visit</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-selector">
+            🌐
+            <select id="global-lang-select">
+              <option value="en">EN</option>
+              <option value="ta">தமிழ்</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">PS</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Loading...</div>
+              <div class="user-role-label" id="header-user-role">Patient</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="card mb-3">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2>Intelligent OPD Crowd Predictions</h2>
+              <p>Plan your outpatient visits during verified low-congestion hours to reduce physical waiting time.</p>
+            </div>
+            <div style="min-width: 220px;">
+              <select id="best-time-dept-select" class="form-control" aria-label="Department Filter"></select>
+            </div>
+          </div>
+        </div>
+
+        <!-- HIGHLIGHT CARDS -->
+        <div class="grid grid-2 gap-2 mb-3">
+          <div class="card" style="border-left: 5px solid var(--success); background: linear-gradient(135deg, rgba(22,163,74,0.06), #FFF);">
+            <span class="badge badge-success mb-1">🌟 Recommended Low-Traffic Slot</span>
+            <div style="font-size: 2rem; font-weight: 800; color: var(--success); margin: 0.35rem 0;" id="rec-window">2:00 PM – 3:00 PM</div>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Expected Wait: <strong id="rec-wait" style="color:var(--text-main);">~15 minutes</strong> • Congestion: <strong id="rec-level" style="color:var(--success);">Low</strong>
+            </p>
+          </div>
+
+          <div class="card" style="border-left: 5px solid var(--danger); background: linear-gradient(135deg, rgba(220,38,38,0.06), #FFF);">
+            <span class="badge badge-danger mb-1">⚠️ High Traffic & Peak Rush</span>
+            <div style="font-size: 2rem; font-weight: 800; color: var(--danger); margin: 0.35rem 0;" id="peak-window">10:00 AM – 12:00 PM</div>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Expected Wait: <strong id="peak-wait" style="color:var(--text-main);">40-50 minutes</strong> • Heavy registration influx.
+            </p>
+          </div>
+        </div>
+
+        <!-- Hourly Schedule -->
+        <div class="card mb-3">
+          <h3 style="margin-bottom: 1.25rem;">Hourly OPD Load Breakdown (8:00 AM – 5:00 PM)</h3>
+          <div id="hourly-schedule-container">
+            <div class="text-center" style="padding: 2rem;"><div class="spinner"></div></div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.8rem; color: var(--text-muted); background: var(--surface-alt); padding: 0.85rem 1.25rem; border-radius: var(--radius-md);">
+          ℹ️ <strong>Disclaimer:</strong> <span id="best-time-disclaimer">Predictions are derived from OPD historical records and do not guarantee emergency wait times.</span>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/best-time.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+  </script>
+</body>
+</html>

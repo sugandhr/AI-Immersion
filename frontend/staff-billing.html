@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPD Billing Desk | SmartCare Queue AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/billing.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="staff-dashboard.html" class="sidebar-brand"><span>🛡️</span> SmartCare Ops</a>
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Close">&times;</button>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="nav-category">Queue Control</div>
+        <a href="staff-dashboard.html" class="nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+        <a href="queue-management.html" class="nav-link"><span class="nav-icon">⚡</span> Live Queue Management</a>
+        <div class="nav-category">Hospital Operations</div>
+        <a href="patients.html" class="nav-link"><span class="nav-icon">👥</span> Patient Directory</a>
+        <a href="doctors.html" class="nav-link"><span class="nav-icon">👨‍⚕️</span> Doctors & Counters</a>
+        <a href="staff-departments.html" class="nav-link"><span class="nav-icon">🏥</span> Departments</a>
+        <a href="staff-lab.html" class="nav-link"><span class="nav-icon">🔬</span> Laboratory Processing</a>
+        <a href="staff-billing.html" class="nav-link active"><span class="nav-icon">💳</span> OPD Billing Desk</a>
+        <div class="nav-category">Intelligence & Review</div>
+        <a href="analytics.html" class="nav-link"><span class="nav-icon">📈</span> Operational Analytics</a>
+        <a href="staff-feedback.html" class="nav-link"><span class="nav-icon">⭐</span> Patient Feedback</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm btn-block" onclick="window.Auth.logout()">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="header-title">OPD Billing Counters</div>
+        </div>
+        <div class="header-right">
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="header-user-avatar">ST</div>
+            <div class="user-details">
+              <div class="user-name" id="header-user-name">Staff</div>
+              <div class="user-role-label" id="header-user-role">STAFF</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2>Outpatient Invoices & Fee Clearance</h2>
+            <p>Generate new patient bills and verify digital payment statuses.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openNewBillModal()">+ Create New Invoice</button>
+        </div>
+
+        <div id="bills-list-container">
+          <div class="card text-center" style="padding: 2rem;"><div class="spinner"></div></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Create Bill Modal -->
+  <div class="modal-overlay" id="create-bill-modal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h3>Generate OPD Bill</h3>
+        <button style="background:none; border:none; font-size:1.5rem; cursor:pointer;" onclick="closeNewBillModal()">&times;</button>
+      </div>
+
+      <form id="create-bill-form">
+        <div class="form-group">
+          <label class="form-label" for="bill-patient-id">Patient Profile</label>
+          <select id="bill-patient-id" class="form-control" required>
+            <option value="c0000000-0000-0000-0000-000000000001">Priya Sharma (patient@smartcare.org)</option>
+            <option value="c0000000-0000-0000-0000-000000000002">Rahul Raj (rahul.raj@example.com)</option>
+            <option value="c0000000-0000-0000-0000-000000000003">Karthik M (karthik.m@example.com)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-2 gap-2">
+          <div class="form-group">
+            <label class="form-label" for="bill-consult-fee">Consultation Fee (₹)</label>
+            <input type="number" id="bill-consult-fee" class="form-control" value="500" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bill-lab-fee">Diagnostic Lab Fee (₹)</label>
+            <input type="number" id="bill-lab-fee" class="form-control" value="300">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bill-pharmacy-fee">Pharmacy Fee (₹)</label>
+            <input type="number" id="bill-pharmacy-fee" class="form-control" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bill-reg-fee">Registration Fee (₹)</label>
+            <input type="number" id="bill-reg-fee" class="form-control" value="100">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
+          <button type="button" class="btn btn-outline" onclick="closeNewBillModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Generate Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/billing.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('app-sidebar').classList.toggle('open'); }
+    function openNewBillModal() { document.getElementById('create-bill-modal').classList.add('active'); }
+    function closeNewBillModal() { document.getElementById('create-bill-modal').classList.remove('active'); }
+
+    document.getElementById('create-bill-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const patientId = document.getElementById('bill-patient-id').value;
+      const consult = document.getElementById('bill-consult-fee').value;
+      const lab = document.getElementById('bill-lab-fee').value;
+      const pharmacy = document.getElementById('bill-pharmacy-fee').value;
+      const reg = document.getElementById('bill-reg-fee').value;
+
+      try {
+        const res = await window.api.post('/bills', {
+          patient_id: patientId,
+          consultation_fee: consult,
+          lab_fee: lab,
+          pharmacy_fee: pharmacy,
+          registration_fee: reg
+        });
+        if (res.success) {
+          window.api.showToast('New bill generated successfully', 'success');
+          closeNewBillModal();
+          location.reload();
+        }
+      } catch (err) {
+        window.api.showToast(err.message, 'danger');
+      }
+    });
+  </script>
+</body>
+</html>
